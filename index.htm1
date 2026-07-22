@@ -1,0 +1,1605 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>کتاب‌خونه</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800&family=Noto+Naskh+Arabic:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F1E7CE; --paper-card:#FBF6E9; --ink:#2A1D12; --ink-soft:#7A6A50;
+    --accent:#1F3556; --accent-dark:#16273F; --ochre:#B8891E; --rust:#7A2331; --line:rgba(42,29,18,0.16);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{margin:0;font-family:'Vazirmatn',sans-serif;background:var(--paper);color:var(--ink);
+    background-image:radial-gradient(circle at 1px 1px, rgba(42,29,18,0.06) 1px, transparent 0);background-size:18px 18px;}
+  a{color:inherit;text-decoration:none;} button{font-family:inherit;cursor:pointer;border:none;transition:transform .15s ease, box-shadow .15s ease, background .15s ease;}
+  input,textarea,select{font-family:inherit;}
+  h1,h2,h3,.logo{font-family:'Noto Naskh Arabic', serif;}
+
+  header{display:flex;align-items:center;justify-content:space-between;padding:20px 6vw;border-bottom:2px solid var(--ink);flex-wrap:wrap;gap:12px;
+    position:sticky;top:0;z-index:30;background:rgba(241,231,206,0.92);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);}
+  .logo{font-weight:800;font-size:26px;letter-spacing:1px;} .logo span{color:var(--accent);}
+  .logo-img{width:46px;height:46px;border-radius:6px;object-fit:cover;flex-shrink:0;}
+  .contact-chip{font-size:12.5px;color:var(--ink-soft);border:1px solid var(--line);border-radius:20px;padding:6px 12px;display:inline-flex;align-items:center;gap:5px;}
+  .contact-chip:hover{border-color:var(--ink);color:var(--ink);}
+  .tagline{font-size:12px;color:var(--ink-soft);margin-top:2px;}
+  .nav-actions{display:flex;align-items:center;gap:10px;}
+  .cart-btn{position:relative;display:flex;align-items:center;gap:6px;padding:9px 16px;border:1px solid var(--ink);border-radius:4px;font-size:13.5px;font-weight:600;}
+  .cart-btn .count{position:absolute;top:-8px;left:-8px;background:var(--rust);color:#fff;font-size:11px;
+    width:19px;height:19px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;}
+
+  .hero{padding:56px 6vw 0; max-width:900px;}
+  .ms-frame{position:relative;border:2px solid var(--ochre);padding:44px 40px;background:var(--paper-card);}
+  .ms-frame::before{content:'';position:absolute;inset:6px;border:1px solid var(--accent);pointer-events:none;opacity:.55;}
+  .ms-corner{position:absolute;width:24px;height:24px;color:var(--ochre);}
+  .ms-corner.tl{top:-13px;right:-13px;} .ms-corner.tr{top:-13px;left:-13px;}
+  .ms-corner.bl{bottom:-13px;right:-13px;} .ms-corner.br{bottom:-13px;left:-13px;}
+  .hero .eyebrow{display:inline-block;background:var(--accent);color:var(--paper-card);font-size:12px;font-weight:600;padding:5px 14px;border-radius:2px;margin-bottom:16px;font-family:'Vazirmatn',sans-serif;}
+  .hero h1{font-size:clamp(28px,4.6vw,44px);font-weight:700;line-height:1.5;margin:0 0 14px;}
+  .hero p{font-size:15px;color:var(--ink-soft);line-height:1.9;max-width:560px;font-family:'Vazirmatn',sans-serif;}
+  .ms-divider{display:flex;align-items:center;gap:16px;margin:38px 6vw;color:var(--ochre);max-width:900px;}
+  .ms-divider .dline{flex:1;height:1px;background:linear-gradient(90deg, transparent, var(--ochre) 15%, var(--ochre) 85%, transparent);}
+
+  main{padding:0 6vw 80px;} .page{max-width:1000px;margin:0 auto;padding:44px 6vw 80px;}
+  .menu-btn{position:fixed;top:18px;right:18px;z-index:45;width:40px;height:40px;border-radius:8px;
+    border:1px solid var(--ink);background:var(--paper-card);font-size:18px;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(43,42,37,0.1);}
+  .menu-overlay{position:fixed;inset:0;background:rgba(20,14,8,0.45);backdrop-filter:blur(2px);-webkit-backdrop-filter:blur(2px);
+    opacity:0;pointer-events:none;transition:opacity .25s ease;z-index:46;}
+  .menu-overlay.open{opacity:1;pointer-events:auto;}
+  .menu-drawer{position:fixed;top:0;right:0;height:100vh;width:300px;max-width:85vw;background:var(--paper-card);
+    box-shadow:-14px 0 40px rgba(20,14,8,0.25);transform:translateX(100%);transition:transform .32s cubic-bezier(.2,.8,.2,1);
+    z-index:47;padding:24px 20px;overflow-y:auto;display:flex;flex-direction:column;gap:3px;}
+  .menu-drawer.open{transform:translateX(0);}
+  .menu-drawer-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;padding-bottom:16px;border-bottom:1.5px solid var(--line);}
+  .menu-drawer-title{font-family:'Noto Naskh Arabic',serif;font-size:19px;font-weight:700;display:flex;align-items:center;gap:8px;}
+  .menu-close{width:34px;height:34px;border-radius:50%;border:1px solid var(--line);background:transparent;font-size:16px;display:flex;align-items:center;justify-content:center;}
+  .menu-close:hover{background:var(--paper);}
+  .menu-drawer a{padding:13px 14px;border-radius:6px;font-size:14.5px;font-weight:600;}
+  .menu-drawer a:hover{background:var(--paper);}
+  .menu-toggle{width:100%;text-align:right;padding:13px 14px;border-radius:6px;font-size:14.5px;font-weight:600;background:transparent;display:flex;justify-content:space-between;align-items:center;color:var(--ink);}
+  .menu-toggle:hover{background:var(--paper);}
+  .menu-submenu{display:none;flex-direction:column;gap:1px;padding:4px 0 8px;margin-right:8px;border-right:2px solid var(--ochre);padding-right:14px;}
+  .menu-submenu.open{display:flex;}
+  .menu-submenu a{padding:10px 14px;font-size:13.5px;font-weight:500;color:var(--ink-soft);}
+  .menu-submenu a:hover{background:var(--paper);color:var(--ink);}
+  .menu-empty{padding:9px 14px;font-size:12px;color:var(--ink-soft);}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:26px;}
+  .cat-chips{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:30px;}
+  .cat-chip{font-size:13px;font-weight:600;padding:8px 16px;border-radius:2px;border:1px solid var(--line);background:var(--paper-card);color:var(--ink-soft);}
+  .cat-chip:hover{border-color:var(--ink);color:var(--ink);}
+  .cat-chip.active{background:var(--accent);border-color:var(--accent);color:var(--paper-card);}
+  .card{background:var(--paper-card);border:1px solid var(--line);border-radius:4px;position:relative;overflow:hidden;transition:transform .25s cubic-bezier(.2,.8,.2,1), box-shadow .25s ease;}
+  .card:hover{transform:translateY(-5px);box-shadow:0 16px 32px rgba(42,29,18,0.16), 0 0 0 1px rgba(184,137,30,0.25);}
+  .card .img img{transition:transform .4s ease;}
+  .card:hover .img img{transform:scale(1.06);}
+  .card .stamp{position:absolute;top:14px;left:14px;border:1.5px solid var(--rust);color:var(--rust);font-size:11px;font-weight:700;padding:4px 10px;border-radius:2px;opacity:.92;background:rgba(251,246,233,0.9);z-index:2;text-align:center;}
+  .fav-btn{position:absolute;top:12px;right:12px;z-index:2;width:32px;height:32px;border-radius:50%;background:rgba(251,246,233,0.92);
+    display:flex;align-items:center;justify-content:center;font-size:16px;border:1px solid var(--line);transition:transform .15s ease;}
+  .fav-btn:hover{transform:scale(1.12);}
+  .fav-btn:active{transform:scale(.9);}
+  @keyframes heartPop{0%{transform:scale(1);}40%{transform:scale(1.35);}100%{transform:scale(1);}}
+  .fav-btn.popped{animation:heartPop .35s ease;}
+  .card .img{height:200px;background:linear-gradient(135deg,var(--accent) 0%,var(--accent-dark) 100%);display:flex;align-items:center;justify-content:center;color:var(--paper-card);font-size:44px;font-weight:800;overflow:hidden;position:relative;font-family:'Noto Naskh Arabic',serif;}
+  .card .img::after{content:'';position:absolute;inset:9px;border:1px solid rgba(251,246,233,0.3);pointer-events:none;}
+  .card .img img{width:100%;height:100%;object-fit:cover;position:relative;z-index:0;}
+  .card .body{padding:15px 17px 18px;} .card h3{margin:0 0 6px;font-size:17px;font-weight:700;}
+  .card p{margin:0 0 12px;font-size:13px;color:var(--ink-soft);line-height:1.7;min-height:40px;}
+  .price-row{display:flex;align-items:center;justify-content:space-between;border-top:1px dashed var(--line);padding-top:11px;}
+  .price{font-weight:800;color:var(--ochre);font-size:16px;} .price::after{content:' تومان';font-size:11px;font-weight:500;color:var(--ink-soft);}
+  .add-btn{background:var(--accent);color:#fff;padding:7px 13px;border-radius:4px;font-size:12.5px;font-weight:700;}
+  .add-btn:hover{background:var(--accent-dark);}
+
+  .empty{text-align:center;padding:70px 20px;color:var(--ink-soft);} .empty .big{font-size:44px;margin-bottom:10px;}
+  footer{padding:24px 6vw;border-top:2px solid var(--ink);display:flex;justify-content:space-between;align-items:center;font-size:12px;color:var(--ink-soft);flex-wrap:wrap;gap:10px;}
+  footer a{opacity:.6;transition:opacity .15s;} footer a:hover{opacity:1;}
+
+  .btn{display:inline-block;padding:11px 22px;border-radius:4px;font-weight:700;font-size:14px;transition:transform .15s ease, box-shadow .15s ease, background .15s ease;}
+  .btn:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(42,29,18,0.14);}
+  .btn:active{transform:translateY(0);box-shadow:none;}
+  .btn-accent{background:var(--accent);color:#fff;} .btn-accent:hover{background:var(--accent-dark);}
+  .btn-rust{background:transparent;color:var(--rust);border:1px solid var(--rust);} .btn-rust:hover{background:var(--rust);color:#fff;}
+  .btn-ghost{background:transparent;color:var(--ink);border:1px solid var(--line);} .btn-ghost:hover{border-color:var(--ink);}
+  .btn-block{width:100%;} .btn:disabled{opacity:.5;cursor:not-allowed;}
+
+  .login-box{max-width:380px;margin:50px auto;background:var(--paper-card);border:1px solid var(--line);border-radius:6px;padding:34px 28px;text-align:center;}
+  .login-box .seal{width:60px;height:60px;border-radius:50%;border:3px solid var(--accent);color:var(--accent);display:flex;align-items:center;justify-content:center;margin:0 auto 16px;font-weight:800;font-size:20px;}
+  .login-box h2{margin:0 0 6px;font-size:19px;} .login-box .sub{font-size:13px;color:var(--ink-soft);margin-bottom:22px;}
+  .field{text-align:right;margin-bottom:14px;} .field label{display:block;font-size:12.5px;color:var(--ink-soft);margin-bottom:6px;}
+  .field input, .field textarea, .field select{width:100%;padding:10px 13px;border:1px solid var(--line);border-radius:4px;background:#fff;font-size:14px;color:var(--ink);}
+  .field input[type=color]{padding:4px;height:44px;}
+  .field textarea{resize:vertical;min-height:66px;}
+  .error-msg{background:rgba(140,59,46,0.1);color:var(--rust);border:1px solid rgba(140,59,46,0.3);padding:9px 12px;border-radius:4px;font-size:13px;margin-bottom:14px;}
+  .info-msg{background:rgba(61,92,70,0.1);color:var(--accent-dark);border:1px solid rgba(61,92,70,0.3);padding:9px 12px;border-radius:4px;font-size:13px;margin-bottom:14px;}
+
+  .admin-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:22px;flex-wrap:wrap;gap:14px;}
+  .admin-header h2{margin:0;font-size:24px;font-weight:800;}
+  .tabs{display:flex;gap:6px;margin-bottom:26px;flex-wrap:wrap;border-bottom:1px solid var(--line);padding-bottom:0;}
+  .tab-btn{padding:10px 16px;font-size:13.5px;font-weight:600;color:var(--ink-soft);border-bottom:2px solid transparent;background:transparent;}
+  .tab-btn.active{color:var(--accent);border-bottom-color:var(--accent);}
+  .panel{background:var(--paper-card);border:1px solid var(--line);border-radius:6px;padding:22px;margin-bottom:24px;}
+  .panel h3{margin:0 0 16px;font-size:15.5px;font-weight:700;}
+  .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;} .form-grid .full{grid-column:1/-1;}
+
+  .prod-row{display:flex;align-items:center;gap:14px;padding:13px 0;border-bottom:1px solid var(--line);} .prod-row:last-child{border-bottom:none;}
+  .prod-row .thumb{width:48px;height:48px;border-radius:4px;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;flex-shrink:0;overflow:hidden;}
+  .prod-row .thumb img{width:100%;height:100%;object-fit:cover;}
+  .prod-row .info{flex:1;min-width:0;} .prod-row .info h4{margin:0 0 3px;font-size:14.5px;} .prod-row .info span{font-size:12px;color:var(--ink-soft);}
+  .prod-row .actions{display:flex;gap:8px;}
+  .icon-btn{width:32px;height:32px;border-radius:4px;display:flex;align-items:center;justify-content:center;background:transparent;border:1px solid var(--line);color:var(--ink-soft);}
+  .icon-btn:hover{border-color:var(--ink);color:var(--ink);} .icon-btn.del:hover{border-color:var(--rust);color:var(--rust);}
+
+  .order-card{border:1px solid var(--line);border-radius:6px;padding:16px 18px;margin-bottom:14px;background:#fff;}
+  .order-card .top{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:8px;margin-bottom:10px;}
+  .order-card .oid{font-weight:800;font-size:14px;} .order-card .odate{font-size:11.5px;color:var(--ink-soft);}
+  .order-card .cust{font-size:13px;color:var(--ink-soft);line-height:1.9;margin-bottom:10px;}
+  .order-card .items{font-size:13px;margin-bottom:10px;border-top:1px dashed var(--line);padding-top:10px;}
+  .order-card .items div{display:flex;justify-content:space-between;padding:2px 0;}
+  .order-card .bottom{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;border-top:1px dashed var(--line);padding-top:10px;}
+  .order-card .total{font-weight:800;color:var(--ochre);}
+  .status-pill{font-size:12px;padding:5px 10px;border-radius:20px;font-weight:600;}
+  .status-pill.pending{background:rgba(192,138,46,0.15);color:var(--ochre);}
+  .status-pill.shipped{background:rgba(61,92,70,0.15);color:var(--accent);}
+  .status-pill.delivered{background:rgba(61,92,70,0.25);color:var(--accent-dark);}
+
+  .cart-row{display:flex;align-items:center;gap:14px;padding:16px 0;border-bottom:1px solid var(--line);}
+  .cart-row .thumb{width:56px;height:56px;border-radius:4px;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;flex-shrink:0;}
+  .cart-row .info{flex:1;} .cart-row .info h4{margin:0 0 4px;font-size:15px;} .cart-row .info span{font-size:12.5px;color:var(--ink-soft);}
+  .qty-box{display:flex;align-items:center;gap:8px;} .qty-box button{width:26px;height:26px;border:1px solid var(--line);border-radius:4px;background:#fff;font-weight:700;}
+  .cart-total{display:flex;justify-content:space-between;align-items:center;padding:18px 0;font-size:17px;font-weight:800;}
+  .cart-total span:last-child{color:var(--ochre);}
+
+  .steps{display:flex;gap:0;margin-bottom:30px;} .step{flex:1;text-align:center;font-size:12px;color:var(--ink-soft);position:relative;padding-bottom:12px;border-bottom:3px solid var(--line);}
+  .step.active{color:var(--accent);border-bottom-color:var(--accent);font-weight:700;}
+  .step.done{color:var(--accent);border-bottom-color:var(--accent);}
+
+  .otp-box{display:flex;gap:10px;justify-content:center;margin:18px 0;direction:ltr;}
+  .otp-box input{width:46px;height:54px;text-align:center;font-size:20px;font-weight:800;border:1px solid var(--line);border-radius:6px;}
+  .sim-code{background:var(--paper);border:1px dashed var(--ochre);border-radius:6px;padding:14px;text-align:center;margin-bottom:18px;}
+  .sim-code .code{font-size:26px;font-weight:800;letter-spacing:6px;color:var(--ochre);direction:ltr;}
+
+  .breadcrumb{font-size:12.5px;color:var(--ink-soft);margin-bottom:20px;}
+  .breadcrumb a:hover{color:var(--ink);}
+  .pd-grid{display:grid;grid-template-columns:340px 1fr;gap:36px;}
+  .pd-img{background:linear-gradient(135deg,var(--accent) 0%,var(--accent-dark) 100%);border-radius:2px;height:420px;position:relative;
+    display:flex;align-items:center;justify-content:center;color:#fff;font-size:64px;font-weight:800;overflow:hidden;font-family:'Noto Naskh Arabic',serif;}
+  .pd-img::after{content:'';position:absolute;inset:12px;border:1px solid rgba(251,246,233,0.3);pointer-events:none;}
+  .pd-img img{width:100%;height:100%;object-fit:cover;}
+  .pd-cat{display:inline-block;border:1px solid var(--rust);color:var(--rust);font-size:11.5px;font-weight:700;padding:4px 12px;border-radius:2px;margin-bottom:12px;}
+  .pd-title{font-size:26px;font-weight:700;margin:0 0 8px;}
+  .pd-desc{color:var(--ink-soft);font-size:14.5px;line-height:2;margin-bottom:20px;}
+  .pd-price-box{background:var(--paper-card);border:1px solid var(--line);border-radius:8px;padding:20px;margin-bottom:22px;}
+  .pd-price{font-size:26px;font-weight:800;color:var(--ochre);}
+  .pd-price::after{content:' تومان';font-size:12px;font-weight:500;color:var(--ink-soft);}
+  .pd-actions{display:flex;gap:10px;align-items:center;margin-top:16px;flex-wrap:wrap;}
+  .specs-table{width:100%;border-collapse:collapse;font-size:13.5px;}
+  .specs-table tr{border-bottom:1px solid var(--line);}
+  .specs-table td{padding:10px 4px;}
+  .specs-table td:first-child{color:var(--ink-soft);width:140px;}
+  .specs-table td:last-child{font-weight:600;}
+  .section-title{font-size:16px;font-weight:700;margin:30px 0 14px;}
+  @media(max-width:720px){.pd-grid{grid-template-columns:1fr;} .pd-img{height:300px;}}
+
+  .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--ink);color:var(--paper);padding:12px 20px;border-radius:6px;font-size:13.5px;opacity:0;transition:opacity .25s;pointer-events:none;z-index:50;}
+  .toast.show{opacity:1;}
+  .loading{text-align:center;padding:60px;color:var(--ink-soft);}
+  .success-box{text-align:center;padding:50px 20px;}
+  .success-box .check{width:70px;height:70px;border-radius:50%;background:var(--accent);color:#fff;font-size:32px;display:flex;align-items:center;justify-content:center;margin:0 auto 18px;}
+  @media(max-width:640px){.form-grid{grid-template-columns:1fr;} .steps{font-size:10.5px;}}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<div class="toast" id="toast"></div>
+
+<script>
+const K = { PRODUCTS:'products', CREDS:'admin-credentials', SETTINGS:'site-settings', ORDERS:'orders', VISITS:'visit-count', CATEGORIES:'categories', USERS:'users', WISHLIST:'wishlist' };
+const DEFAULT_CREDS = { username: 'amir H B M', password: 'amir0137' };
+const DEFAULT_SETTINGS = { name: 'کتاب‌خونه', tagline: 'قفسه‌ای برای کتاب‌هایی که ارزش خوندن دارن', accent: '#1F3556',
+  logoImage: '', bannerImage: '', phones: [], address: '',
+  heroEyebrow: 'تازه‌های قفسه', heroTitle: 'کتابی که دنبالشی، همین‌جاست',
+  heroSubtitle: 'مجموعه‌ای منتخب از رمان، ترجمه و کتاب‌های ایرانی. سفارش بده، آدرس و شماره‌ت رو ثبت کن، پرداخت کن — تمام.',
+  footerText: 'کتاب اصل، تحویل مطمئن', customCSS: '' };
+const DEFAULT_CATEGORIES = ['رمان', 'ترجمه'];
+const SEED_PRODUCTS = [
+  { id:'t1', name:'بوف کور', price:'180000', category:'رمان', desc:'صادق هدایت — یکی از مهم‌ترین آثار ادبیات معاصر ایران', image:'', author:'صادق هدایت', publisher:'انتشارات نگاه', pages:'112', isbn:'978-964-351-000-1' },
+  { id:'t2', name:'کیمیاگر', price:'220000', category:'ترجمه', desc:'پائولو کوئیلو — داستان جست‌وجوی رؤیای شخصی', image:'', author:'پائولو کوئیلو', publisher:'انتشارات کاروان', pages:'192', isbn:'978-964-8055-01-3' },
+  { id:'t3', name:'ملت عشق', price:'260000', category:'رمان', desc:'الیف شافاک — روایتی موازی از عشق و عرفان', image:'', author:'الیف شافاک', publisher:'نشر ققنوس', pages:'368', isbn:'978-600-278-004-8' }
+];
+
+let isLoggedIn = false;
+let cart = [];               // [{id, qty}]
+let checkout = { step:1, customer:{}, code:'', orderId:'' };
+let siteSettings = DEFAULT_SETTINGS;
+let editingId = null;        // product id currently being edited in the admin form, or null for "add" mode
+let visitCounted = false;
+let shopCategoryFilter = null; // active category filter on the shop page, null = show all
+let currentUser = null;        // logged-in customer (session-only, like admin login)
+let categoriesCache = [];      // cached categories list for the hamburger menu
+
+/* ---------- storage: Claude artifact storage > browser localStorage (works for downloaded/hosted files) > in-memory ---------- */
+const memoryStore = {};
+const LS_PREFIX = 'ketabkhaneh:';
+const hasRealStorage = () => (typeof window !== 'undefined' && window.storage && typeof window.storage.get === 'function');
+const hasLocalStorage = () => {
+  try{ const k='__t__'; window.localStorage.setItem(k,'1'); window.localStorage.removeItem(k); return true; }
+  catch(e){ return false; }
+};
+async function storageGet(key){
+  if(hasRealStorage()){ try{ return await window.storage.get(key, true); }catch(e){ /* fall through */ } }
+  if(hasLocalStorage()){
+    const v = window.localStorage.getItem(LS_PREFIX+key);
+    return v !== null ? { value: v } : null;
+  }
+  return Object.prototype.hasOwnProperty.call(memoryStore, key) ? { value: memoryStore[key] } : null;
+}
+async function storageSet(key, value){
+  if(hasRealStorage()){ try{ await window.storage.set(key, value, true); return true; }catch(e){ /* fall through */ } }
+  if(hasLocalStorage()){ try{ window.localStorage.setItem(LS_PREFIX+key, value); return true; }catch(e){ /* fall through */ } }
+  memoryStore[key] = value; return true;
+}
+function showToast(msg){ const t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),2200); }
+
+async function ensureSeed(){
+  if(!(await storageGet(K.PRODUCTS))) await storageSet(K.PRODUCTS, JSON.stringify(SEED_PRODUCTS));
+  if(!(await storageGet(K.CREDS))) await storageSet(K.CREDS, JSON.stringify(DEFAULT_CREDS));
+  if(!(await storageGet(K.SETTINGS))) await storageSet(K.SETTINGS, JSON.stringify(DEFAULT_SETTINGS));
+  if(!(await storageGet(K.ORDERS))) await storageSet(K.ORDERS, JSON.stringify([]));
+  if(!(await storageGet(K.CATEGORIES))) await storageSet(K.CATEGORIES, JSON.stringify(DEFAULT_CATEGORIES));
+  if(!(await storageGet(K.USERS))) await storageSet(K.USERS, JSON.stringify([]));
+  if(!(await storageGet(K.WISHLIST))) await storageSet(K.WISHLIST, JSON.stringify([]));
+}
+async function loadProducts(){ try{ const r=await storageGet(K.PRODUCTS); return r?JSON.parse(r.value):[]; }catch(e){ return []; } }
+async function saveProducts(l){ const ok=await storageSet(K.PRODUCTS, JSON.stringify(l)); if(!ok) showToast('خطا در ذخیره‌سازی'); return ok; }
+async function getCreds(){ try{ const r=await storageGet(K.CREDS); return r?JSON.parse(r.value):DEFAULT_CREDS; }catch(e){ return DEFAULT_CREDS; } }
+async function saveCreds(c){ return storageSet(K.CREDS, JSON.stringify(c)); }
+async function loadSettings(){
+  try{
+    const r = await storageGet(K.SETTINGS);
+    if(!r) return DEFAULT_SETTINGS;
+    const s = JSON.parse(r.value);
+    if(!Array.isArray(s.phones)){ s.phones = s.phone ? [s.phone] : []; delete s.phone; }
+    return { ...DEFAULT_SETTINGS, ...s };
+  }catch(e){ return DEFAULT_SETTINGS; }
+}
+async function saveSettings(s){ return storageSet(K.SETTINGS, JSON.stringify(s)); }
+async function loadOrders(){ try{ const r=await storageGet(K.ORDERS); return r?JSON.parse(r.value):[]; }catch(e){ return []; } }
+async function saveOrders(o){ return storageSet(K.ORDERS, JSON.stringify(o)); }
+async function loadCategories(){ try{ const r=await storageGet(K.CATEGORIES); return r?JSON.parse(r.value):[]; }catch(e){ return []; } }
+async function saveCategories(c){ return storageSet(K.CATEGORIES, JSON.stringify(c)); }
+async function loadUsers(){ try{ const r=await storageGet(K.USERS); return r?JSON.parse(r.value):[]; }catch(e){ return []; } }
+async function saveUsers(u){ return storageSet(K.USERS, JSON.stringify(u)); }
+async function loadWishlist(){ try{ const r=await storageGet(K.WISHLIST); return r?JSON.parse(r.value):[]; }catch(e){ return []; } }
+async function saveWishlist(w){ return storageSet(K.WISHLIST, JSON.stringify(w)); }
+
+function applySettings(){
+  document.documentElement.style.setProperty('--accent', siteSettings.accent || DEFAULT_SETTINGS.accent);
+  const dark = shadeColor(siteSettings.accent || DEFAULT_SETTINGS.accent, -18);
+  document.documentElement.style.setProperty('--accent-dark', dark);
+  let styleTag = document.getElementById('customStyleTag');
+  if(!styleTag){
+    styleTag = document.createElement('style');
+    styleTag.id = 'customStyleTag';
+    document.head.appendChild(styleTag);
+  }
+  styleTag.textContent = siteSettings.customCSS || '';
+}
+function shadeColor(hex, percent){
+  try{
+    let f=parseInt(hex.slice(1),16), t=percent<0?0:255, p=Math.abs(percent)/100;
+    let R=f>>16, G=(f>>8)&0x00FF, B=f&0x0000FF;
+    const nr = Math.round((t-R)*p)+R, ng=Math.round((t-G)*p)+G, nb=Math.round((t-B)*p)+B;
+    return '#'+(0x1000000+nr*0x10000+ng*0x100+nb).toString(16).slice(1);
+  }catch(e){ return hex; }
+}
+/* ---------- Jalali (Persian) calendar conversion ---------- */
+function jdiv(a, b) { return ~~(a / b); }
+function jmod(a, b) { return a - ~~(a / b) * b; }
+function jalCal(jy) {
+  const breaks = [-61, 9, 38, 199, 426, 686, 756, 818, 1111, 1181, 1210, 1635, 2060, 2097, 2192, 2262, 2324, 2394, 2456, 3178];
+  const bl = breaks.length; const gy = jy + 621; let leapJ = -14; let jp = breaks[0];
+  let jm, jump = 0, i;
+  for (i = 1; i < bl; i += 1) {
+    jm = breaks[i]; jump = jm - jp;
+    if (jy < jm) break;
+    leapJ = leapJ + jdiv(jump, 33) * 8 + jdiv(jmod(jump, 33), 4);
+    jp = jm;
+  }
+  let n = jy - jp;
+  leapJ = leapJ + jdiv(n, 33) * 8 + jdiv(jmod(n, 33) + 3, 4);
+  if (jmod(jump, 33) === 4 && jump - n === 4) leapJ += 1;
+  const leapG = jdiv(gy, 4) - jdiv((jdiv(gy, 100) + 1) * 3, 4) - 150;
+  const march = 20 + leapJ - leapG;
+  if (jump - n < 6) n = n - jump + jdiv(jump, 33) * 33;
+  let leap = jmod(jmod(n + 1, 33) - 1, 4);
+  if (leap === -1) leap = 4;
+  return { leap, gy, march };
+}
+function isLeapJalaaliYear(jy){ return jalCal(jy).leap === 0; }
+function jalaaliMonthLength(jy, jm){ if(jm<=6) return 31; if(jm<=11) return 30; return isLeapJalaaliYear(jy)?30:29; }
+function g2d(gy, gm, gd) {
+  let d = jdiv((gy + jdiv(gm - 8, 6) + 100100) * 1461, 4) + jdiv(153 * jmod(gm + 9, 12) + 2, 5) + gd - 34840408;
+  d = d - jdiv(jdiv(gy + jdiv(gm - 8, 6) + 100100, 100) * 3, 4) + 752;
+  return d;
+}
+function d2g(jdn) {
+  let j = 4 * jdn + 139361631;
+  j = j + jdiv(jdiv(4 * jdn + 183187720, 146097) * 3, 4) * 4 - 3908;
+  const i = jdiv(jmod(j, 1461), 4) * 5 + 308;
+  const gd = jdiv(jmod(i, 153), 5) + 1;
+  const gm = jmod(jdiv(i, 153), 12) + 1;
+  const gy = jdiv(j, 1461) - 100100 + jdiv(8 - gm, 6);
+  return { gy, gm, gd };
+}
+function j2d(jy, jm, jd){ const r = jalCal(jy); return g2d(r.gy, 3, r.march) + (jm - 1) * 31 - jdiv(jm, 7) * (jm - 7) + jd - 1; }
+function d2j(jdn) {
+  const gy = d2g(jdn).gy; let jy = gy - 621;
+  const r = jalCal(jy); const jdn1f = g2d(gy, 3, r.march);
+  let jd, jm, k = jdn - jdn1f;
+  if (k >= 0) {
+    if (k <= 185) { jm = 1 + jdiv(k, 31); jd = jmod(k, 31) + 1; return { jy, jm, jd }; }
+    k -= 186;
+  } else { jy -= 1; k += 179; if (r.leap === 1) k += 1; }
+  jm = 7 + jdiv(k, 30); jd = jmod(k, 30) + 1;
+  return { jy, jm, jd };
+}
+function toJalaali(gy, gm, gd){ return d2j(g2d(gy, gm, gd)); }
+function toGregorian(jy, jm, jd){ return d2g(j2d(jy, jm, jd)); }
+const JALALI_MONTHS = ['فروردین','اردیبهشت','خرداد','تیر','مرداد','شهریور','مهر','آبان','آذر','دی','بهمن','اسفند'];
+
+function jalaliInputHtml(prefix, isoValue, label){
+  let jy='', jm=1, jd='', hh='', mi='';
+  if(isoValue){
+    const d = new Date(isoValue);
+    if(!isNaN(d.getTime())){
+      const j = toJalaali(d.getFullYear(), d.getMonth()+1, d.getDate());
+      jy = j.jy; jm = j.jm; jd = j.jd;
+      hh = String(d.getHours()).padStart(2,'0'); mi = String(d.getMinutes()).padStart(2,'0');
+    }
+  }
+  return `
+    <div class="field">
+      <label>${label}</label>
+      <div style="display:flex;gap:6px;">
+        <input type="number" id="${prefix}_y" placeholder="سال" value="${jy}" style="width:80px;padding:10px 8px;border:1px solid var(--line);border-radius:4px;font-size:13px;">
+        <select id="${prefix}_m" style="flex:1;padding:10px 8px;border:1px solid var(--line);border-radius:4px;font-size:13px;">
+          ${JALALI_MONTHS.map((m,i)=>`<option value="${i+1}" ${jm==i+1?'selected':''}>${m}</option>`).join('')}
+        </select>
+        <input type="number" id="${prefix}_d" placeholder="روز" min="1" max="31" value="${jd}" style="width:64px;padding:10px 8px;border:1px solid var(--line);border-radius:4px;font-size:13px;">
+        <input type="time" id="${prefix}_t" value="${hh&&mi?hh+':'+mi:''}" style="width:110px;padding:10px 8px;border:1px solid var(--line);border-radius:4px;font-size:13px;">
+      </div>
+    </div>`;
+}
+function readJalaliInput(prefix){
+  const y = document.getElementById(prefix+'_y').value;
+  const m = document.getElementById(prefix+'_m').value;
+  const d = document.getElementById(prefix+'_d').value;
+  const t = document.getElementById(prefix+'_t').value;
+  if(!y || !d) return '';
+  try{
+    const g = toGregorian(parseInt(y,10), parseInt(m,10), parseInt(d,10));
+    let hh=0, mi=0;
+    if(t){ const parts = t.split(':'); hh = parseInt(parts[0],10)||0; mi = parseInt(parts[1],10)||0; }
+    const dt = new Date(g.gy, g.gm-1, g.gd, hh, mi);
+    return dt.toISOString();
+  }catch(e){ return ''; }
+}
+function jalaliDisplay(isoValue){
+  if(!isoValue) return '';
+  const d = new Date(isoValue);
+  if(isNaN(d.getTime())) return '';
+  const j = toJalaali(d.getFullYear(), d.getMonth()+1, d.getDate());
+  return `${j.jd} ${JALALI_MONTHS[j.jm-1]} ${j.jy} - ${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}`;
+}
+
+function fmtPrice(p){ const n=parseInt(p||'0',10); return isNaN(n)?p:n.toLocaleString('fa-IR'); }
+function thumb(p){ if(p.image){ return `<img src="${p.image.replace(/"/g,'&quot;')}" alt="" onerror="this.parentElement.innerHTML='${(p.name||'؟').charAt(0)}'">`; } return (p.name||'؟').charAt(0); }
+function genCode(){ return String(Math.floor(1000+Math.random()*9000)); }
+function genOrderId(){ return 'KH-'+Date.now().toString().slice(-8); }
+
+/* ---- discounts: active only between discountStart and discountEnd, auto-expire by date comparison ---- */
+function activeDiscountPercent(p){
+  const pct = parseInt(p.discountPercent||0,10);
+  if(!pct || pct<=0) return 0;
+  const now = Date.now();
+  const start = p.discountStart ? new Date(p.discountStart).getTime() : 0;
+  const end = p.discountEnd ? new Date(p.discountEnd).getTime() : Infinity;
+  if(isNaN(start) || isNaN(end)) return 0;
+  if(now >= start && now <= end) return pct;
+  return 0;
+}
+function effectivePrice(p){
+  const base = parseInt(p.price||0,10);
+  const pct = activeDiscountPercent(p);
+  if(!pct) return base;
+  return Math.round(base * (100-pct) / 100);
+}
+function priceBlockHtml(p, size){
+  const pct = activeDiscountPercent(p);
+  const eff = effectivePrice(p);
+  const cls = size==='lg' ? 'pd-price' : 'price';
+  if(pct){
+    return `<div style="display:flex;flex-direction:column;gap:2px;">
+      <span style="font-size:11.5px;color:var(--ink-soft);text-decoration:line-through;">${fmtPrice(p.price)} تومان</span>
+      <span class="${cls}" style="display:flex;align-items:center;gap:6px;">${fmtPrice(eff)}<span style="background:var(--rust);color:#fff;font-size:10.5px;font-weight:700;padding:2px 7px;border-radius:10px;">٪${pct} تخفیف</span></span>
+    </div>`;
+  }
+  return `<span class="${cls}">${fmtPrice(eff)}</span>`;
+}
+
+/* ---- site visit counter ---- */
+async function trackVisit(){
+  if(visitCounted) return;
+  visitCounted = true;
+  try{
+    const cur = await storageGet(K.VISITS);
+    const n = (cur ? (parseInt(cur.value,10)||0) : 0) + 1;
+    await storageSet(K.VISITS, String(n));
+  }catch(e){ /* non-critical */ }
+}
+async function getVisitCount(){
+  try{ const r = await storageGet(K.VISITS); return r ? (parseInt(r.value,10)||0) : 0; }catch(e){ return 0; }
+}
+
+function doLogout(){
+  try{
+    isLoggedIn = false;
+    window.location.hash = '#/admin';
+    route();
+  }catch(err){
+    alert('خطا در خروج: ' + err.message);
+  }
+}
+function toggleMenu(){
+  const el = document.getElementById('mainMenuDropdown');
+  const ov = document.getElementById('menuOverlay');
+  if(el) el.classList.toggle('open');
+  if(ov) ov.classList.toggle('open');
+}
+function closeMenu(){
+  const el = document.getElementById('mainMenuDropdown');
+  const ov = document.getElementById('menuOverlay');
+  if(el) el.classList.remove('open');
+  if(ov) ov.classList.remove('open');
+}
+function toggleProductsSubmenu(){
+  const el = document.getElementById('productsSubmenu');
+  const arrow = document.getElementById('prodSubArrow');
+  if(el) el.classList.toggle('open');
+  if(arrow) arrow.textContent = el && el.classList.contains('open') ? '▴' : '▾';
+}
+function scrollToCatalog(){
+  const main = document.querySelector('main');
+  if(main) main.scrollIntoView({behavior:'smooth', block:'start'});
+}
+function goToCategory(cat){
+  shopCategoryFilter = cat;
+  closeMenu();
+  const hash = window.location.hash || '#/';
+  if(hash === '#/' || hash === ''){
+    renderShop().then(scrollToCatalog);
+  }else{
+    window.location.hash = '#/';
+    setTimeout(scrollToCatalog, 200);
+  }
+}
+
+function genUserId(){ return 'u'+Date.now(); }
+
+async function isInWishlist(productId){
+  if(!currentUser) return false;
+  const w = await loadWishlist();
+  return w.some(x => x.userId===currentUser.id && x.productId===productId);
+}
+async function toggleWishlist(productId){
+  if(!currentUser){
+    if(confirm('برای افزودن به علاقه‌مندی‌ها باید وارد حساب کاربری بشی. الان بریم به صفحه ورود؟')){
+      window.location.hash = '#/account';
+    }
+    return false;
+  }
+  const w = await loadWishlist();
+  const idx = w.findIndex(x => x.userId===currentUser.id && x.productId===productId);
+  if(idx > -1){ w.splice(idx,1); await saveWishlist(w); return false; }
+  w.push({ userId: currentUser.id, productId, addedAt: new Date().toISOString() });
+  await saveWishlist(w);
+  return true;
+}
+
+function rosetteSvg(size, color){
+  color = color || 'currentColor';
+  return `<svg viewBox="0 0 40 40" width="${size}" height="${size}" style="color:${color};flex-shrink:0;">
+    <circle cx="20" cy="20" r="18" fill="none" stroke="currentColor" stroke-width="1.3"/>
+    <circle cx="20" cy="20" r="12.5" fill="none" stroke="currentColor" stroke-width="0.9"/>
+    <g stroke="currentColor" stroke-width="1.1" fill="none">
+      <path d="M20 4 L20 36 M4 20 L36 20 M8.3 8.3 L31.7 31.7 M31.7 8.3 L8.3 31.7"/>
+    </g>
+    <circle cx="20" cy="20" r="3.2" fill="currentColor"/>
+  </svg>`;
+}
+
+/* ---------------- HEADER ---------------- */
+function headerHtml(activeCart){
+  return `
+    <button type="button" class="menu-btn" onclick="toggleMenu()">☰</button>
+    <div class="menu-overlay" id="menuOverlay" onclick="closeMenu()"></div>
+    <div class="menu-drawer" id="mainMenuDropdown">
+      <div class="menu-drawer-head">
+        <div class="menu-drawer-title">${rosetteSvg(22,'var(--ochre)')} فهرست</div>
+        <button type="button" class="menu-close" onclick="closeMenu()">✕</button>
+      </div>
+      <a href="#/">🏠 خانه</a>
+      <div class="menu-group">
+        <button type="button" class="menu-toggle" onclick="toggleProductsSubmenu()">📚 محصولات <span id="prodSubArrow">▾</span></button>
+        <div class="menu-submenu" id="productsSubmenu">
+          ${categoriesCache.length ? categoriesCache.map(c=>`<a href="javascript:void(0)" onclick="goToCategory('${c.replace(/'/g,"\\'")}')">${c}</a>`).join('') : `<span class="menu-empty">هنوز دسته‌بندی‌ای نیست</span>`}
+        </div>
+      </div>
+      <a href="#/cart">🛒 سبد خرید</a>
+      <a href="#/contact">☎ تماس با ما</a>
+      <a href="#/account">👤 ${currentUser ? 'حساب من' : 'ثبت‌نام / ورود'}</a>
+      ${currentUser ? `<a href="#/wishlist">❤ علاقه‌مندی‌های من</a>` : ''}
+    </div>
+    <header>
+      <div style="display:flex;align-items:center;gap:12px;">
+        ${siteSettings.logoImage ? `<img src="${siteSettings.logoImage.replace(/"/g,'&quot;')}" alt="" class="logo-img" onerror="this.style.display='none'">` : rosetteSvg(38, 'var(--ochre)')}
+        <div>
+          <div class="logo">${siteSettings.name}</div>
+          <div class="tagline">${siteSettings.tagline}</div>
+        </div>
+      </div>
+      <div class="nav-actions">
+        <a href="#/account" class="cart-btn">${currentUser ? '👤 '+currentUser.name.split(' ')[0] : 'ثبت‌نام / ورود'}</a>
+        ${currentUser ? `<a href="#/wishlist" class="cart-btn">❤ علاقه‌مندی‌ها</a>` : ''}
+        <a href="#/cart" class="cart-btn">سبد خرید ${cart.length?`<span class="count">${cart.reduce((s,c)=>s+c.qty,0)}</span>`:''}</a>
+      </div>
+    </header>`;
+}
+
+/* ---------------- SHOP ---------------- */
+async function renderShop(){
+  const app = document.getElementById('app');
+  app.innerHTML = `
+    ${headerHtml()}
+    <div class="hero" ${siteSettings.bannerImage ? `style="background-image:linear-gradient(rgba(241,231,206,0.88),rgba(241,231,206,0.96)), url('${siteSettings.bannerImage.replace(/'/g,"")}');background-size:cover;background-position:center;"` : ''}>
+      <div class="ms-frame">
+        <div class="ms-corner tl">${rosetteSvg(24,'var(--ochre)')}</div>
+        <div class="ms-corner tr">${rosetteSvg(24,'var(--ochre)')}</div>
+        <div class="ms-corner bl">${rosetteSvg(24,'var(--ochre)')}</div>
+        <div class="ms-corner br">${rosetteSvg(24,'var(--ochre)')}</div>
+        <span class="eyebrow">${siteSettings.heroEyebrow}</span>
+        <h1>${siteSettings.heroTitle}</h1>
+        <p>${siteSettings.heroSubtitle}</p>
+      </div>
+    </div>
+    <div class="ms-divider"><span class="dline"></span>${rosetteSvg(30,'var(--ochre)')}<span class="dline"></span></div>
+    <main><div class="loading">در حال بارگذاری قفسه…</div></main>
+    <footer><span>© ${siteSettings.name} — ${siteSettings.footerText}</span><a href="#/admin">ورود مدیر</a></footer>
+  `;
+  const products = await loadProducts();
+  const categories = await loadCategories();
+  const wishlist = currentUser ? await loadWishlist() : [];
+  const favSet = new Set(wishlist.filter(w=>w.userId===currentUser?.id).map(w=>w.productId));
+  const main = app.querySelector('main');
+  if(!products.length){
+    main.innerHTML = `<div class="empty"><div class="big">📚</div>هنوز کتابی توی قفسه نیست</div>`;
+    trackVisit();
+    return;
+  }
+  const filtered = shopCategoryFilter ? products.filter(p => p.category === shopCategoryFilter) : products;
+  const chips = `<div class="cat-chips">
+    <button class="cat-chip ${!shopCategoryFilter?'active':''}" data-cat="">همه</button>
+    ${categories.map(c => `<button class="cat-chip ${shopCategoryFilter===c?'active':''}" data-cat="${c}">${c}</button>`).join('')}
+  </div>`;
+  main.innerHTML = `
+    ${categories.length ? chips : ''}
+    ${!filtered.length ? `<div class="empty" style="padding:40px 0;">کتابی توی این دسته نیست</div>` : `<div class="grid">${filtered.map(p => `
+    <div class="card">
+      <div class="stamp">${(p.category||'کتاب').replace(/</g,'')}</div>
+      <button class="fav-btn" data-fav-id="${p.id}">${favSet.has(p.id)?'❤':'🤍'}</button>
+      <a href="#/product/${p.id}" style="display:block;color:inherit;">
+        <div class="img">${thumb(p)}</div>
+      </a>
+      <div class="body">
+        <a href="#/product/${p.id}" style="display:block;color:inherit;">
+          <h3>${p.name}</h3>
+          <p>${p.desc||''}</p>
+        </a>
+        <div class="price-row">
+          ${priceBlockHtml(p)}
+          <button class="add-btn" data-id="${p.id}">افزودن به سبد</button>
+        </div>
+      </div>
+    </div>
+  `).join('')}</div>`}`;
+  main.querySelectorAll('.cat-chip').forEach(b=>{
+    b.addEventListener('click', ()=>{
+      shopCategoryFilter = b.dataset.cat || null;
+      renderShop();
+    });
+  });
+  main.querySelectorAll('.fav-btn').forEach(b=>{
+    b.addEventListener('click', async ()=>{
+      b.classList.add('popped');
+      const added = await toggleWishlist(b.dataset.favId);
+      if(currentUser) showToast(added ? 'به علاقه‌مندی‌ها اضافه شد' : 'از علاقه‌مندی‌ها حذف شد');
+      setTimeout(renderShop, 220);
+    });
+  });
+  trackVisit();
+  main.querySelectorAll('.add-btn').forEach(b=>{
+    b.addEventListener('click', ()=>{
+      const existing = cart.find(c=>c.id===b.dataset.id);
+      if(existing) existing.qty++; else cart.push({id:b.dataset.id, qty:1});
+      showToast('به سبد اضافه شد');
+      renderShop();
+    });
+  });
+}
+
+/* ---------------- CART ---------------- */
+async function renderCart(){
+  const app = document.getElementById('app');
+  const products = await loadProducts();
+  const rows = cart.map(c => ({...c, p: products.find(p=>p.id===c.id)})).filter(r=>r.p);
+  const total = rows.reduce((s,r)=>s + effectivePrice(r.p)*r.qty, 0);
+  app.innerHTML = `
+    ${headerHtml()}
+    <div class="page">
+      <h2 style="margin-top:0;">سبد خرید</h2>
+      ${!rows.length ? `<div class="empty"><div class="big">🛒</div>سبدت خالیه<br><a href="#/" class="btn btn-accent" style="margin-top:16px;">برو به قفسه</a></div>` : `
+      <div class="panel">
+        ${rows.map(r => `
+          <div class="cart-row">
+            <div class="thumb">${thumb(r.p)}</div>
+            <div class="info"><h4>${r.p.name}</h4><span>${fmtPrice(effectivePrice(r.p))} تومان${activeDiscountPercent(r.p)?' <s style="opacity:.6;">'+fmtPrice(r.p.price)+'</s>':''}</span></div>
+            <div class="qty-box">
+              <button data-act="dec" data-id="${r.id}">−</button>
+              <span>${r.qty}</span>
+              <button data-act="inc" data-id="${r.id}">+</button>
+            </div>
+            <button class="icon-btn del" data-act="rm" data-id="${r.id}" title="حذف">✕</button>
+          </div>
+        `).join('')}
+        <div class="cart-total"><span>جمع کل</span><span>${fmtPrice(total)} تومان</span></div>
+        <a href="#/checkout" class="btn btn-accent btn-block" style="text-align:center;">تکمیل خرید</a>
+      </div>`}
+    </div>
+    <footer><span>© ${siteSettings.name}</span><a href="#/">بازگشت به فروشگاه</a></footer>
+  `;
+  app.querySelectorAll('[data-act]').forEach(b=>{
+    b.addEventListener('click', ()=>{
+      const id = b.dataset.id, act = b.dataset.act;
+      const item = cart.find(c=>c.id===id);
+      if(act==='inc') item.qty++;
+      if(act==='dec'){ item.qty--; if(item.qty<=0) cart = cart.filter(c=>c.id!==id); }
+      if(act==='rm') cart = cart.filter(c=>c.id!==id);
+      renderCart();
+    });
+  });
+}
+
+/* ---------------- CHECKOUT (form -> otp -> payment -> success) ---------------- */
+function stepsHtml(step){
+  const labels = ['اطلاعات گیرنده','تایید شماره موبایل','پرداخت'];
+  return `<div class="steps">${labels.map((l,i)=>`<div class="step ${step===i+1?'active':step>i+1?'done':''}">${i+1}. ${l}</div>`).join('')}</div>`;
+}
+
+async function renderCheckout(){
+  const app = document.getElementById('app');
+  if(!cart.length){ window.location.hash = '#/cart'; return; }
+  const products = await loadProducts();
+  const rows = cart.map(c => ({...c, p: products.find(p=>p.id===c.id)})).filter(r=>r.p);
+  const total = rows.reduce((s,r)=>s + effectivePrice(r.p)*r.qty, 0);
+  if(currentUser && checkout.step===1 && !checkout.customer.phone){
+    checkout.customer = { name: currentUser.name, phone: currentUser.phone, email: currentUser.email||'', address: currentUser.address||'', zip: '' };
+  }
+
+  if(checkout.step === 1){
+    app.innerHTML = `
+      ${headerHtml()}
+      <div class="page" style="max-width:520px;">
+        ${stepsHtml(1)}
+        <div class="panel">
+          <h3>اطلاعات گیرنده مرسوله</h3>
+          <form id="custForm">
+            <div class="field"><label>نام و نام‌خانوادگی</label><input type="text" id="c_name" required value="${checkout.customer.name||''}"></div>
+            <div class="field"><label>شماره موبایل</label><input type="tel" id="c_phone" required pattern="09[0-9]{9}" placeholder="09xxxxxxxxx" value="${checkout.customer.phone||''}"></div>
+            <div class="field"><label>ایمیل (اختیاری)</label><input type="email" id="c_email" value="${checkout.customer.email||''}"></div>
+            <div class="field"><label>آدرس کامل</label><textarea id="c_addr" required>${checkout.customer.address||''}</textarea></div>
+            <div class="field"><label>کد پستی (اختیاری)</label><input type="text" id="c_zip" value="${checkout.customer.zip||''}"></div>
+            <button type="submit" class="btn btn-accent btn-block">ارسال کد تایید</button>
+          </form>
+        </div>
+      </div>
+      <footer><span>© ${siteSettings.name}</span><a href="#/cart">بازگشت به سبد</a></footer>
+    `;
+    app.querySelector('#custForm').addEventListener('submit', (e)=>{
+      e.preventDefault();
+      checkout.customer = {
+        name: document.getElementById('c_name').value.trim(),
+        phone: document.getElementById('c_phone').value.trim(),
+        email: document.getElementById('c_email').value.trim(),
+        address: document.getElementById('c_addr').value.trim(),
+        zip: document.getElementById('c_zip').value.trim()
+      };
+      checkout.code = genCode();
+      checkout.step = 2;
+      renderCheckout();
+    });
+    return;
+  }
+
+  if(checkout.step === 2){
+    app.innerHTML = `
+      ${headerHtml()}
+      <div class="page" style="max-width:480px;">
+        ${stepsHtml(2)}
+        <div class="panel" style="text-align:center;">
+          <h3>تایید شماره موبایل</h3>
+          <div class="info-msg">کد به شماره ${checkout.customer.phone} پیامک می‌شه</div>
+          <div class="sim-code">
+            <div style="font-size:11.5px;color:var(--ink-soft);margin-bottom:6px;">این کد فقط برای نمایش آزمایشی است (پیامک واقعی وصل نیست)</div>
+            <div class="code">${checkout.code}</div>
+          </div>
+          <div class="otp-box">
+            ${[0,1,2,3].map(i=>`<input maxlength="1" class="otp-i" data-i="${i}">`).join('')}
+          </div>
+          <div id="otpErr"></div>
+          <button id="verifyBtn" class="btn btn-accent btn-block">تایید کد</button>
+          <button id="backBtn1" class="btn btn-ghost btn-block" style="margin-top:10px;">بازگشت</button>
+        </div>
+      </div>
+      <footer><span>© ${siteSettings.name}</span><a href="#/cart">بازگشت به سبد</a></footer>
+    `;
+    const inputs = [...app.querySelectorAll('.otp-i')];
+    inputs.forEach((inp,i)=>{
+      inp.addEventListener('input', ()=>{ if(inp.value && inputs[i+1]) inputs[i+1].focus(); });
+    });
+    app.querySelector('#verifyBtn').addEventListener('click', ()=>{
+      const entered = inputs.map(i=>i.value).join('');
+      if(entered === checkout.code){
+        checkout.step = 3;
+        renderCheckout();
+      }else{
+        document.getElementById('otpErr').innerHTML = `<div class="error-msg">کد وارد شده صحیح نیست</div>`;
+      }
+    });
+    app.querySelector('#backBtn1').addEventListener('click', ()=>{ checkout.step=1; renderCheckout(); });
+    return;
+  }
+
+  if(checkout.step === 3){
+    app.innerHTML = `
+      ${headerHtml()}
+      <div class="page" style="max-width:480px;">
+        ${stepsHtml(3)}
+        <div class="panel">
+          <h3>پرداخت</h3>
+          <div class="info-msg">این درگاه پرداخت شبیه‌سازی‌شده است — برای پرداخت واقعی نیاز به اتصال یک درگاه بانکی معتبر است</div>
+          <div class="cart-total"><span>مبلغ قابل پرداخت</span><span>${fmtPrice(total)} تومان</span></div>
+          <button id="payBtn" class="btn btn-accent btn-block">پرداخت و ثبت سفارش</button>
+        </div>
+      </div>
+      <footer><span>© ${siteSettings.name}</span></footer>
+    `;
+    app.querySelector('#payBtn').addEventListener('click', async (e)=>{
+      e.target.disabled = true; e.target.textContent = 'در حال پردازش پرداخت…';
+      await new Promise(r=>setTimeout(r, 1000));
+      const orders = await loadOrders();
+      const orderId = genOrderId();
+      orders.unshift({
+        id: orderId,
+        items: rows.map(r=>({ id:r.p.id, name:r.p.name, price:effectivePrice(r.p), qty:r.qty })),
+        customer: checkout.customer,
+        total,
+        status: 'pending',
+        paymentStatus: 'paid',
+        createdAt: new Date().toISOString()
+      });
+      await saveOrders(orders);
+      checkout.orderId = orderId;
+      checkout.step = 4;
+      cart = [];
+      renderCheckout();
+    });
+    return;
+  }
+
+  if(checkout.step === 4){
+    app.innerHTML = `
+      ${headerHtml()}
+      <div class="page" style="max-width:480px;">
+        <div class="success-box">
+          <div class="check">✓</div>
+          <h2>سفارش با موفقیت ثبت شد</h2>
+          <p style="color:var(--ink-soft);">شماره سفارش شما: <strong>${checkout.orderId}</strong></p>
+          <a href="#/" class="btn btn-accent" style="margin-top:14px;">بازگشت به فروشگاه</a>
+        </div>
+      </div>
+    `;
+    checkout = { step:1, customer:{}, code:'', orderId:'' };
+    return;
+  }
+}
+
+/* ---------------- ACCOUNT (login / register / profile) ---------------- */
+async function renderAccountPage(mode){
+  const app = document.getElementById('app');
+  if(currentUser){
+    const orders = (await loadOrders()).filter(o => o.customer.phone === currentUser.phone);
+    app.innerHTML = `
+      ${headerHtml()}
+      <div class="page" style="max-width:560px;">
+        <div class="panel">
+          <h3>حساب کاربری من</h3>
+          <table class="specs-table">
+            <tr><td>نام</td><td>${currentUser.name}</td></tr>
+            <tr><td>شماره موبایل</td><td>${currentUser.phone}</td></tr>
+            ${currentUser.email?`<tr><td>ایمیل</td><td>${currentUser.email}</td></tr>`:''}
+            ${currentUser.address?`<tr><td>آدرس</td><td>${currentUser.address}</td></tr>`:''}
+            <tr><td>تاریخ عضویت</td><td>${jalaliDisplay(currentUser.createdAt)}</td></tr>
+          </table>
+          <div style="display:flex;gap:10px;margin-top:18px;flex-wrap:wrap;">
+            <a href="#/wishlist" class="btn btn-accent">❤ علاقه‌مندی‌های من</a>
+            <button id="userLogoutBtn" type="button" class="btn btn-ghost">خروج از حساب</button>
+          </div>
+        </div>
+        <div class="panel">
+          <h3>سفارش‌های من (${orders.length.toLocaleString('fa-IR')})</h3>
+          ${!orders.length ? `<div style="color:var(--ink-soft);font-size:13.5px;">هنوز سفارشی ثبت نکردی</div>` : orders.map(o=>`
+            <div class="order-card">
+              <div class="top"><span class="oid">${o.id}</span><span class="odate">${jalaliDisplay(o.createdAt)}</span></div>
+              <div class="items">${o.items.map(it=>`<div><span>${it.name} × ${it.qty}</span><span>${fmtPrice(it.price*it.qty)} تومان</span></div>`).join('')}</div>
+              <div class="bottom"><span class="total">${fmtPrice(o.total)} تومان</span></div>
+            </div>`).join('')}
+        </div>
+      </div>
+      <footer><span>© ${siteSettings.name}</span><a href="#/">بازگشت به فروشگاه</a></footer>
+    `;
+    document.getElementById('userLogoutBtn').addEventListener('click', ()=>{
+      currentUser = null;
+      renderAccountPage('login');
+    });
+    return;
+  }
+
+  mode = mode || 'login';
+  app.innerHTML = `
+    ${headerHtml()}
+    <div class="page" style="max-width:420px;">
+      <div class="login-box">
+        <div class="seal">👤</div>
+        <h2>${mode==='register' ? 'ساخت حساب کاربری' : 'ورود به حساب کاربری'}</h2>
+        <div class="sub">${mode==='register' ? 'برای ذخیره سفارش‌ها و علاقه‌مندی‌هات ثبت‌نام کن' : 'با شماره موبایل و رمز عبورت وارد شو'}</div>
+        <div id="authError"></div>
+        ${mode==='register' ? `
+          <form id="registerForm">
+            <div class="field"><label>نام و نام‌خانوادگی</label><input type="text" id="r_name" required></div>
+            <div class="field"><label>شماره موبایل</label><input type="tel" id="r_phone" required pattern="09[0-9]{9}" placeholder="09xxxxxxxxx"></div>
+            <div class="field"><label>ایمیل (اختیاری)</label><input type="email" id="r_email"></div>
+            <div class="field"><label>آدرس (اختیاری)</label><input type="text" id="r_address"></div>
+            <div class="field"><label>رمز عبور</label><input type="password" id="r_pass" required></div>
+            <button type="submit" class="btn btn-accent btn-block">ثبت‌نام</button>
+          </form>
+          <div style="margin-top:14px;font-size:13px;">حساب داری؟ <a href="#/account" id="goLogin" style="color:var(--accent);font-weight:700;">وارد شو</a></div>
+        ` : `
+          <form id="loginUserForm">
+            <div class="field"><label>شماره موبایل</label><input type="tel" id="l_phone" required placeholder="09xxxxxxxxx"></div>
+            <div class="field"><label>رمز عبور</label><input type="password" id="l_pass" required></div>
+            <button type="submit" class="btn btn-accent btn-block">ورود</button>
+          </form>
+          <div style="margin-top:14px;font-size:13px;">حساب نداری؟ <a id="goRegister" style="color:var(--accent);font-weight:700;cursor:pointer;">ثبت‌نام کن</a></div>
+        `}
+      </div>
+    </div>
+    <footer><span>© ${siteSettings.name}</span><a href="#/">بازگشت به فروشگاه</a></footer>
+  `;
+  if(mode==='register'){
+    document.getElementById('registerForm').addEventListener('submit', async (e)=>{
+      e.preventDefault();
+      const phone = document.getElementById('r_phone').value.trim();
+      const users = await loadUsers();
+      if(users.some(u=>u.phone===phone)){
+        document.getElementById('authError').innerHTML = `<div class="error-msg">این شماره موبایل قبلاً ثبت‌نام کرده</div>`;
+        return;
+      }
+      const user = {
+        id: genUserId(), name: document.getElementById('r_name').value.trim(), phone,
+        email: document.getElementById('r_email').value.trim(), address: document.getElementById('r_address').value.trim(),
+        password: document.getElementById('r_pass').value, createdAt: new Date().toISOString()
+      };
+      users.push(user);
+      await saveUsers(users);
+      currentUser = user;
+      showToast('ثبت‌نام با موفقیت انجام شد');
+      renderAccountPage();
+    });
+  }else{
+    document.getElementById('loginUserForm').addEventListener('submit', async (e)=>{
+      e.preventDefault();
+      const phone = document.getElementById('l_phone').value.trim();
+      const pass = document.getElementById('l_pass').value;
+      const users = await loadUsers();
+      const user = users.find(u=>u.phone===phone && u.password===pass);
+      if(user){ currentUser = user; showToast('خوش اومدی، ' + user.name.split(' ')[0]); renderAccountPage(); }
+      else{ document.getElementById('authError').innerHTML = `<div class="error-msg">شماره موبایل یا رمز عبور اشتباهه</div>`; }
+    });
+    document.getElementById('goRegister').addEventListener('click', ()=> renderAccountPage('register'));
+  }
+}
+
+/* ---------------- WISHLIST ---------------- */
+async function renderWishlistPage(){
+  const app = document.getElementById('app');
+  if(!currentUser){ window.location.hash = '#/account'; return; }
+  const [wishlist, products] = await Promise.all([loadWishlist(), loadProducts()]);
+  const mine = wishlist.filter(w=>w.userId===currentUser.id);
+  const rows = mine.map(w => ({...w, p: products.find(p=>p.id===w.productId)})).filter(r=>r.p);
+  app.innerHTML = `
+    ${headerHtml()}
+    <div class="page">
+      <h2 style="margin-top:0;">❤ علاقه‌مندی‌های من</h2>
+      ${!rows.length ? `<div class="empty"><div class="big">🤍</div>هنوز چیزی به علاقه‌مندی‌هات اضافه نکردی<br><a href="#/" class="btn btn-accent" style="margin-top:16px;">برو به قفسه</a></div>` : `
+      <div class="grid">${rows.map(r => `
+        <div class="card">
+          <div class="stamp">${(r.p.category||'کتاب').replace(/</g,'')}</div>
+          <button class="fav-btn" data-fav-id="${r.p.id}">❤</button>
+          <a href="#/product/${r.p.id}" style="display:block;color:inherit;"><div class="img">${thumb(r.p)}</div></a>
+          <div class="body">
+            <a href="#/product/${r.p.id}" style="display:block;color:inherit;"><h3>${r.p.name}</h3><p>${r.p.desc||''}</p></a>
+            <div class="price-row">${priceBlockHtml(r.p)}</div>
+            <div style="font-size:11px;color:var(--ink-soft);margin-top:8px;">اضافه‌شده: ${jalaliDisplay(r.addedAt)}</div>
+          </div>
+        </div>`).join('')}</div>`}
+    </div>
+    <footer><span>© ${siteSettings.name}</span><a href="#/">بازگشت به فروشگاه</a></footer>
+  `;
+  app.querySelectorAll('.fav-btn').forEach(b=>{
+    b.addEventListener('click', async ()=>{
+      await toggleWishlist(b.dataset.favId);
+      showToast('از علاقه‌مندی‌ها حذف شد');
+      renderWishlistPage();
+    });
+  });
+}
+
+/* ---------------- CONTACT US ---------------- */
+async function renderContactPage(){
+  const app = document.getElementById('app');
+  const phones = siteSettings.phones || [];
+  app.innerHTML = `
+    ${headerHtml()}
+    <div class="page" style="max-width:520px;">
+      <div class="ms-frame">
+        <div class="ms-corner tl">${rosetteSvg(24,'var(--ochre)')}</div>
+        <div class="ms-corner tr">${rosetteSvg(24,'var(--ochre)')}</div>
+        <div class="ms-corner bl">${rosetteSvg(24,'var(--ochre)')}</div>
+        <div class="ms-corner br">${rosetteSvg(24,'var(--ochre)')}</div>
+        <span class="eyebrow">در ارتباط باشید</span>
+        <h1>تماس با ${siteSettings.name}</h1>
+        <p>برای سفارش تلفنی، پیگیری سفارش، یا هر سؤالی، از راه‌های زیر با ما در تماس باشید.</p>
+      </div>
+      <div class="panel" style="margin-top:28px;">
+        ${!phones.length && !siteSettings.address ? `<div style="color:var(--ink-soft);font-size:13.5px;">اطلاعات تماسی هنوز ثبت نشده.</div>` : ''}
+        ${phones.length ? `
+          <div style="font-size:13px;font-weight:700;color:var(--ink-soft);margin-bottom:10px;">شماره‌های تماس</div>
+          <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:${siteSettings.address?'22px':'0'};">
+            ${phones.map(p => `<a href="tel:${p.replace(/[^0-9+]/g,'')}" class="contact-chip" style="width:fit-content;font-size:14px;padding:10px 16px;">📞 ${p}</a>`).join('')}
+          </div>` : ''}
+        ${siteSettings.address ? `
+          <div style="font-size:13px;font-weight:700;color:var(--ink-soft);margin-bottom:10px;">آدرس</div>
+          <a href="https://www.google.com/maps/search/${encodeURIComponent(siteSettings.address)}" target="_blank" rel="noopener" class="contact-chip" style="width:fit-content;font-size:14px;padding:10px 16px;">📍 ${siteSettings.address}</a>
+        ` : ''}
+      </div>
+    </div>
+    <footer><span>© ${siteSettings.name}</span><a href="#/">بازگشت به فروشگاه</a></footer>
+  `;
+}
+
+/* ---------------- ADMIN LOGIN ---------------- */
+function renderAdminLogin(errorMsg){
+  const app = document.getElementById('app');
+  app.innerHTML = `
+    ${headerHtml()}
+    <div class="page" style="max-width:420px;">
+      <div class="login-box">
+        <div class="seal">مدیر</div>
+        <h2>ورود به پنل مدیریت</h2>
+        <div class="sub">برای مدیریت ${siteSettings.name} وارد شوید</div>
+        ${errorMsg ? `<div class="error-msg">${errorMsg}</div>` : ''}
+        <form id="loginForm">
+          <div class="field"><label>نام کاربری</label><input type="text" id="uname" required autocomplete="username"></div>
+          <div class="field"><label>رمز عبور</label><input type="password" id="pword" required autocomplete="current-password"></div>
+          <button type="submit" class="btn btn-accent btn-block">ورود</button>
+        </form>
+      </div>
+    </div>
+  `;
+  app.querySelector('#loginForm').addEventListener('submit', async (e)=>{
+    e.preventDefault();
+    const u = document.getElementById('uname').value.trim();
+    const p = document.getElementById('pword').value;
+    const creds = await getCreds();
+    if(u === creds.username && p === creds.password){ isLoggedIn = true; renderAdminPanel('products'); }
+    else{ renderAdminLogin('نام کاربری یا رمز عبور اشتباه است'); }
+  });
+}
+
+/* ---------------- ADMIN PANEL ---------------- */
+async function renderAdminPanel(tab){
+  tab = tab || 'products';
+  const app = document.getElementById('app');
+  app.innerHTML = `
+    ${headerHtml()}
+    <div class="page">
+      <div class="admin-header">
+        <h2>پنل مدیریت</h2>
+        <div style="display:flex;gap:10px;">
+          <a href="#/" class="btn btn-ghost" style="padding:8px 16px;font-size:13px;">مشاهده سایت</a>
+          <button id="logoutBtn" type="button" class="btn btn-accent" style="padding:8px 16px;font-size:13px;" onclick="doLogout()">خروج</button>
+        </div>
+      </div>
+      <div class="tabs">
+        <button class="tab-btn ${tab==='products'?'active':''}" data-tab="products">کتاب‌ها</button>
+        <button class="tab-btn ${tab==='categories'?'active':''}" data-tab="categories">دسته‌بندی‌ها</button>
+        <button class="tab-btn ${tab==='orders'?'active':''}" data-tab="orders">سفارش‌ها</button>
+        <button class="tab-btn ${tab==='stats'?'active':''}" data-tab="stats">آمار سایت</button>
+        <button class="tab-btn ${tab==='users'?'active':''}" data-tab="users">کاربران</button>
+        <button class="tab-btn ${tab==='settings'?'active':''}" data-tab="settings">ظاهر سایت</button>
+        <button class="tab-btn ${tab==='account'?'active':''}" data-tab="account">حساب مدیر</button>
+      </div>
+      <div id="tabBody"></div>
+    </div>
+  `;
+  app.querySelectorAll('.tab-btn').forEach(b=> b.addEventListener('click', ()=> renderAdminPanel(b.dataset.tab)));
+
+  if(tab==='products') renderProductsTab();
+  else if(tab==='categories') renderCategoriesTab();
+  else if(tab==='orders') renderOrdersTab();
+  else if(tab==='stats') renderStatsTab();
+  else if(tab==='users') renderUsersTab();
+  else if(tab==='settings') renderSettingsTab();
+  else renderAccountTab();
+}
+
+async function renderCategoriesTab(){
+  const body = document.getElementById('tabBody');
+  body.innerHTML = `
+    <div class="panel">
+      <h3>افزودن دسته‌بندی جدید</h3>
+      <form id="catForm" style="display:flex;gap:10px;">
+        <input type="text" id="cat_name" placeholder="مثلاً: شعر" required style="flex:1;padding:10px 13px;border:1px solid var(--line);border-radius:4px;background:#fff;font-size:14px;">
+        <button type="submit" class="btn btn-accent">افزودن</button>
+      </form>
+    </div>
+    <div class="panel"><h3>دسته‌بندی‌های موجود</h3><div id="catList" class="loading">در حال بارگذاری…</div></div>
+  `;
+  body.querySelector('#catForm').addEventListener('submit', async (e)=>{
+    e.preventDefault();
+    const input = document.getElementById('cat_name');
+    const name = input.value.trim();
+    if(!name) return;
+    const cats = await loadCategories();
+    if(cats.includes(name)){ showToast('این دسته‌بندی از قبل وجود داره'); return; }
+    cats.push(name);
+    if(await saveCategories(cats)){ showToast('دسته‌بندی اضافه شد'); input.value=''; renderCatList(); }
+  });
+  renderCatList();
+}
+
+async function renderCatList(){
+  const box = document.getElementById('catList');
+  if(!box) return;
+  const [cats, products] = await Promise.all([loadCategories(), loadProducts()]);
+  if(!cats.length){ box.innerHTML = `<div class="empty" style="padding:26px 0;">هنوز دسته‌بندی‌ای اضافه نشده</div>`; return; }
+  box.innerHTML = cats.map(c => {
+    const count = products.filter(p=>p.category===c).length;
+    return `
+    <div class="prod-row">
+      <div class="info"><h4>${c}</h4><span>${count.toLocaleString('fa-IR')} کتاب</span></div>
+      <div class="actions"><button class="icon-btn del" data-cat="${c}" title="حذف">✕</button></div>
+    </div>`;
+  }).join('');
+  box.querySelectorAll('.del').forEach(btn=> btn.addEventListener('click', async ()=>{
+    const c = btn.dataset.cat;
+    const products = await loadProducts();
+    const affected = products.filter(p=>p.category===c).length;
+    const msg = affected ? `این دسته حذف بشه؟ ${affected} کتاب توی این دسته «بدون دسته» می‌شن.` : 'این دسته‌بندی حذف بشه؟';
+    if(!confirm(msg)) return;
+    const cats = (await loadCategories()).filter(x=>x!==c);
+    await saveCategories(cats);
+    if(affected){
+      const updated = products.map(p => p.category===c ? {...p, category:''} : p);
+      await saveProducts(updated);
+    }
+    showToast('دسته‌بندی حذف شد');
+    renderCatList();
+  }));
+}
+
+async function renderProductsTab(){
+  editingId = null;
+  const body = document.getElementById('tabBody');
+  body.innerHTML = `
+    <div class="panel" id="formPanel">${await productFormHtml()}</div>
+    <div class="panel"><h3>لیست کتاب‌ها</h3><div id="prodList" class="loading">در حال بارگذاری…</div></div>
+  `;
+  wireProductForm();
+  renderProdList();
+}
+
+async function productFormHtml(p){
+  p = p || {};
+  const categories = await loadCategories();
+  return `
+    <h3>${p.id ? 'ویرایش کتاب' : 'افزودن کتاب جدید'}</h3>
+    <form id="prodForm" class="form-grid">
+      <div class="field"><label>عنوان کتاب</label><input type="text" id="f_name" required value="${p.name||''}"></div>
+      <div class="field"><label>قیمت (تومان)</label><input type="number" id="f_price" required value="${p.price||''}"></div>
+      <div class="field">
+        <label>دسته‌بندی</label>
+        <select id="f_cat">
+          <option value="" ${!p.category?'selected':''}>بدون دسته</option>
+          ${categories.map(c=>`<option value="${c}" ${p.category===c?'selected':''}>${c}</option>`).join('')}
+        </select>
+        ${!categories.length ? `<div style="font-size:11.5px;color:var(--ink-soft);margin-top:6px;">هنوز دسته‌بندی‌ای نساختی — از تب «دسته‌بندی‌ها» اضافه کن</div>` : ''}
+      </div>
+      <div class="field"><label>آدرس تصویر جلد (اختیاری)</label><input type="text" id="f_img" placeholder="https://..." value="${p.image||''}"></div>
+      <div class="field"><label>نویسنده (اختیاری)</label><input type="text" id="f_author" value="${p.author||''}"></div>
+      <div class="field"><label>مترجم (اختیاری)</label><input type="text" id="f_translator" value="${p.translator||''}"></div>
+      <div class="field"><label>ناشر (اختیاری)</label><input type="text" id="f_publisher" value="${p.publisher||''}"></div>
+      <div class="field"><label>تعداد صفحات (اختیاری)</label><input type="number" id="f_pages" value="${p.pages||''}"></div>
+      <div class="field"><label>وزن به گرم (اختیاری)</label><input type="number" id="f_weight" value="${p.weight||''}"></div>
+      <div class="field"><label>قطع / سایز (اختیاری)</label><input type="text" id="f_size" placeholder="رقعی" value="${p.size||''}"></div>
+      <div class="field"><label>سال تولید (اختیاری)</label><input type="number" id="f_year" value="${p.year||''}"></div>
+      <div class="field"><label>شابک (اختیاری)</label><input type="text" id="f_isbn" value="${p.isbn||''}"></div>
+      <div class="field full"><label>توضیحات</label><textarea id="f_desc">${p.desc||''}</textarea></div>
+
+      <div class="full" style="border-top:1px dashed var(--line);padding-top:14px;margin-top:4px;">
+        <div style="font-size:13.5px;font-weight:700;margin-bottom:10px;">تخفیف زمان‌دار (اختیاری)</div>
+      </div>
+      <div class="field"><label>درصد تخفیف</label><input type="number" min="0" max="90" id="f_disc" value="${p.discountPercent||''}"></div>
+      ${jalaliInputHtml('f_discStart', p.discountStart, 'شروع تخفیف (شمسی)')}
+      ${jalaliInputHtml('f_discEnd', p.discountEnd, 'پایان تخفیف (شمسی)')}
+
+      <div class="full" style="display:flex;gap:10px;">
+        <button type="submit" class="btn btn-accent">${p.id ? 'ذخیره تغییرات' : 'افزودن به قفسه'}</button>
+        ${p.id ? `<button type="button" id="cancelEdit" class="btn btn-ghost">انصراف</button>` : ''}
+      </div>
+    </form>
+  `;
+}
+
+function wireProductForm(){
+  const formPanel = document.getElementById('formPanel');
+  const form = document.getElementById('prodForm');
+  form.addEventListener('submit', async (e)=>{
+    e.preventDefault();
+    const data = {
+      name: document.getElementById('f_name').value.trim(),
+      price: document.getElementById('f_price').value.trim(),
+      category: document.getElementById('f_cat').value.trim(),
+      image: document.getElementById('f_img').value.trim(),
+      author: document.getElementById('f_author').value.trim(),
+      translator: document.getElementById('f_translator').value.trim(),
+      publisher: document.getElementById('f_publisher').value.trim(),
+      pages: document.getElementById('f_pages').value.trim(),
+      weight: document.getElementById('f_weight').value.trim(),
+      size: document.getElementById('f_size').value.trim(),
+      year: document.getElementById('f_year').value.trim(),
+      isbn: document.getElementById('f_isbn').value.trim(),
+      desc: document.getElementById('f_desc').value.trim(),
+      discountPercent: document.getElementById('f_disc').value.trim(),
+      discountStart: readJalaliInput('f_discStart'),
+      discountEnd: readJalaliInput('f_discEnd')
+    };
+    const list = await loadProducts();
+    if(editingId){
+      const idx = list.findIndex(x=>x.id===editingId);
+      if(idx>-1) list[idx] = { ...list[idx], ...data };
+    }else{
+      list.push({ id:'p'+Date.now(), ...data });
+    }
+    const ok = await saveProducts(list);
+    if(ok){
+      showToast(editingId ? 'تغییرات ذخیره شد' : 'کتاب اضافه شد');
+      editingId = null;
+      formPanel.innerHTML = await productFormHtml();
+      wireProductForm();
+      renderProdList();
+    }else{
+      alert('ذخیره‌سازی انجام نشد. لطفاً دوباره تلاش کنید.');
+    }
+  });
+  const cancelBtn = document.getElementById('cancelEdit');
+  if(cancelBtn) cancelBtn.addEventListener('click', async ()=>{
+    editingId = null;
+    formPanel.innerHTML = await productFormHtml();
+    wireProductForm();
+  });
+}
+
+async function renderProdList(){
+  const list = await loadProducts();
+  const box = document.getElementById('prodList');
+  if(!box) return;
+  if(!list.length){ box.innerHTML = `<div class="empty" style="padding:26px 0;">هنوز کتابی اضافه نشده</div>`; return; }
+  box.innerHTML = list.map(p => {
+    const pct = activeDiscountPercent(p);
+    const schedInfo = p.discountPercent ? `· تخفیف ٪${p.discountPercent} (${jalaliDisplay(p.discountStart)||'—'} تا ${jalaliDisplay(p.discountEnd)||'—'})` : '';
+    return `
+    <div class="prod-row">
+      <div class="thumb">${thumb(p)}</div>
+      <div class="info"><h4>${p.name}</h4><span>${fmtPrice(p.price)} تومان ${p.category?'· '+p.category:''} ${pct?`· <strong style="color:var(--rust);">٪${pct} تخفیف فعال</strong>`:schedInfo}</span></div>
+      <div class="actions">
+        <button class="icon-btn edit" data-id="${p.id}" title="ویرایش">✎</button>
+        <button class="icon-btn del" data-id="${p.id}" title="حذف">✕</button>
+      </div>
+    </div>`;
+  }).join('');
+  box.querySelectorAll('.del').forEach(btn=> btn.addEventListener('click', async ()=>{
+    if(!confirm('این کتاب حذف بشه؟')) return;
+    const next = (await loadProducts()).filter(p=>p.id!==btn.dataset.id);
+    if(await saveProducts(next)){ showToast('حذف شد'); renderProdList(); }
+  }));
+  box.querySelectorAll('.edit').forEach(btn=> btn.addEventListener('click', async ()=>{
+    const cur = await loadProducts(); const p = cur.find(x=>x.id===btn.dataset.id); if(!p) return;
+    editingId = p.id;
+    const formPanel = document.getElementById('formPanel');
+    formPanel.innerHTML = await productFormHtml(p);
+    wireProductForm();
+    formPanel.scrollIntoView({behavior:'smooth', block:'start'});
+  }));
+}
+
+async function renderOrdersTab(){
+  const body = document.getElementById('tabBody');
+  body.innerHTML = `<div class="panel"><h3>سفارش‌های ثبت‌شده</h3><div id="ordersBox" class="loading">در حال بارگذاری…</div></div>`;
+  const orders = await loadOrders();
+  const box = document.getElementById('ordersBox');
+  if(!orders.length){ box.innerHTML = `<div class="empty" style="padding:26px 0;">هنوز سفارشی ثبت نشده</div>`; return; }
+  const statusLabel = { pending:'در حال بررسی', shipped:'ارسال شد', delivered:'تحویل داده شد' };
+  box.innerHTML = orders.map(o => `
+    <div class="order-card">
+      <div class="top"><span class="oid">${o.id}</span><span class="odate">${new Date(o.createdAt).toLocaleString('fa-IR')}</span></div>
+      <div class="cust">${o.customer.name} — ${o.customer.phone}${o.customer.email?' — '+o.customer.email:''}<br>${o.customer.address}</div>
+      <div class="items">${o.items.map(it=>`<div><span>${it.name} × ${it.qty}</span><span>${fmtPrice(parseInt(it.price,10)*it.qty)} تومان</span></div>`).join('')}</div>
+      <div class="bottom">
+        <span class="total">${fmtPrice(o.total)} تومان</span>
+        <div style="display:flex;gap:8px;align-items:center;">
+          <select class="statusSel" data-id="${o.id}">
+            ${Object.keys(statusLabel).map(k=>`<option value="${k}" ${o.status===k?'selected':''}>${statusLabel[k]}</option>`).join('')}
+          </select>
+          <button class="icon-btn del delOrder" data-id="${o.id}" title="حذف">✕</button>
+        </div>
+      </div>
+    </div>`).join('');
+  box.querySelectorAll('.statusSel').forEach(sel=> sel.addEventListener('change', async ()=>{
+    const list = await loadOrders(); const o = list.find(x=>x.id===sel.dataset.id); if(o){ o.status = sel.value; await saveOrders(list); showToast('وضعیت به‌روزرسانی شد'); }
+  }));
+  box.querySelectorAll('.delOrder').forEach(btn=> btn.addEventListener('click', async ()=>{
+    if(!confirm('این سفارش حذف بشه؟')) return;
+    const next = (await loadOrders()).filter(o=>o.id!==btn.dataset.id);
+    await saveOrders(next); showToast('حذف شد'); renderOrdersTab();
+  }));
+}
+
+async function renderSettingsTab(){
+  const body = document.getElementById('tabBody');
+  body.innerHTML = `
+    <div class="panel">
+      <h3>ظاهر سایت</h3>
+      <form id="setForm" class="form-grid">
+        <div class="field full"><label>نام سایت / لوگو</label><input type="text" id="s_name" value="${siteSettings.name}"></div>
+        <div class="field full"><label>توضیح زیر لوگو</label><input type="text" id="s_tag" value="${siteSettings.tagline}"></div>
+        <div class="field"><label>رنگ اصلی (لوگو و دکمه‌ها)</label><input type="color" id="s_accent" value="${siteSettings.accent}"></div>
+        <div class="field"><label>آدرس تصویر لوگو (اختیاری)</label><input type="text" id="s_logo" placeholder="https://..." value="${siteSettings.logoImage||''}"></div>
+        <div class="field full"><label>آدرس تصویر بنر صفحه اصلی (اختیاری)</label><input type="text" id="s_banner" placeholder="https://..." value="${siteSettings.bannerImage||''}"></div>
+        <div class="full"><button type="submit" class="btn btn-accent">ذخیره تغییرات ظاهری</button></div>
+      </form>
+    </div>
+    <div class="panel">
+      <h3>محتوای صفحه اصلی</h3>
+      <form id="heroForm" class="form-grid">
+        <div class="field full"><label>برچسب بالای عنوان</label><input type="text" id="s_eyebrow" value="${siteSettings.heroEyebrow||''}"></div>
+        <div class="field full"><label>عنوان اصلی</label><input type="text" id="s_title" value="${siteSettings.heroTitle||''}"></div>
+        <div class="field full"><label>توضیح زیر عنوان</label><textarea id="s_subtitle">${siteSettings.heroSubtitle||''}</textarea></div>
+        <div class="field full"><label>متن پایین فوتر (بعد از نام سایت)</label><input type="text" id="s_footer" value="${siteSettings.footerText||''}"></div>
+        <div class="full"><button type="submit" class="btn btn-accent">ذخیره محتوا</button></div>
+      </form>
+    </div>
+    <div class="panel">
+      <h3>اطلاعات تماس</h3>
+      <div style="font-size:13px;font-weight:700;color:var(--ink-soft);margin-bottom:10px;">شماره‌های تماس (هر چند تا که بخوای)</div>
+      <div id="phonesList" style="display:flex;flex-direction:column;gap:8px;margin-bottom:14px;"></div>
+      <form id="addPhoneForm" style="display:flex;gap:10px;margin-bottom:22px;">
+        <input type="tel" id="new_phone" placeholder="09xxxxxxxxx" required style="flex:1;padding:10px 13px;border:1px solid var(--line);border-radius:4px;background:#fff;font-size:14px;">
+        <button type="submit" class="btn btn-accent">افزودن شماره</button>
+      </form>
+      <form id="addressForm" class="form-grid">
+        <div class="field full"><label>آدرس فروشگاه</label><input type="text" id="s_address" placeholder="شهر، خیابان..." value="${siteSettings.address||''}"></div>
+        <div class="full" style="font-size:12px;color:var(--ink-soft);">شماره‌ها و آدرس در صفحه «تماس با ما» و بالای سایت نمایش داده می‌شن.</div>
+        <div class="full"><button type="submit" class="btn btn-accent">ذخیره آدرس</button></div>
+      </form>
+    </div>
+    <div class="panel">
+      <h3>دسترسی پیشرفته — CSS سفارشی</h3>
+      <div style="font-size:12.5px;color:var(--ink-soft);margin-bottom:12px;">برای کنترل کامل روی ظاهر سایت (فونت، فاصله‌ها، رنگ‌های دیگر، هر چیز دیگه‌ای که بالا نیست)، می‌تونی مستقیم کد CSS بنویسی. اگه با CSS آشنا نیستی، همین‌طور خالی بذارش.</div>
+      <form id="cssForm">
+        <div class="field full"><textarea id="s_css" rows="6" style="min-height:140px;font-family:monospace;direction:ltr;text-align:left;" placeholder="مثال: body { font-size: 16px; }">${siteSettings.customCSS||''}</textarea></div>
+        <button type="submit" class="btn btn-accent">ذخیره CSS</button>
+      </form>
+    </div>`;
+  body.querySelector('#setForm').addEventListener('submit', async (e)=>{
+    e.preventDefault();
+    siteSettings = { ...siteSettings,
+      name: document.getElementById('s_name').value.trim() || DEFAULT_SETTINGS.name,
+      tagline: document.getElementById('s_tag').value.trim(),
+      accent: document.getElementById('s_accent').value,
+      logoImage: document.getElementById('s_logo').value.trim(),
+      bannerImage: document.getElementById('s_banner').value.trim()
+    };
+    await saveSettings(siteSettings);
+    applySettings();
+    showToast('تنظیمات ظاهری ذخیره شد');
+    renderAdminPanel('settings');
+  });
+  body.querySelector('#heroForm').addEventListener('submit', async (e)=>{
+    e.preventDefault();
+    siteSettings = { ...siteSettings,
+      heroEyebrow: document.getElementById('s_eyebrow').value.trim(),
+      heroTitle: document.getElementById('s_title').value.trim(),
+      heroSubtitle: document.getElementById('s_subtitle').value.trim(),
+      footerText: document.getElementById('s_footer').value.trim()
+    };
+    await saveSettings(siteSettings);
+    showToast('محتوای صفحه اصلی ذخیره شد');
+    renderAdminPanel('settings');
+  });
+  renderPhonesList();
+  body.querySelector('#addPhoneForm').addEventListener('submit', async (e)=>{
+    e.preventDefault();
+    const input = document.getElementById('new_phone');
+    const val = input.value.trim();
+    if(!val) return;
+    siteSettings = { ...siteSettings, phones: [...(siteSettings.phones||[]), val] };
+    await saveSettings(siteSettings);
+    input.value = '';
+    showToast('شماره اضافه شد');
+    renderPhonesList();
+  });
+  body.querySelector('#addressForm').addEventListener('submit', async (e)=>{
+    e.preventDefault();
+    siteSettings = { ...siteSettings, address: document.getElementById('s_address').value.trim() };
+    await saveSettings(siteSettings);
+    showToast('آدرس ذخیره شد');
+  });
+  body.querySelector('#cssForm').addEventListener('submit', async (e)=>{
+    e.preventDefault();
+    siteSettings = { ...siteSettings, customCSS: document.getElementById('s_css').value };
+    await saveSettings(siteSettings);
+    applySettings();
+    showToast('CSS سفارشی ذخیره شد');
+  });
+}
+
+function renderPhonesList(){
+  const box = document.getElementById('phonesList');
+  if(!box) return;
+  const phones = siteSettings.phones || [];
+  if(!phones.length){ box.innerHTML = `<div style="font-size:12.5px;color:var(--ink-soft);">هنوز شماره‌ای اضافه نشده</div>`; return; }
+  box.innerHTML = phones.map((p,i) => `
+    <div style="display:flex;align-items:center;gap:10px;background:var(--paper);border:1px solid var(--line);border-radius:4px;padding:9px 13px;">
+      <span style="flex:1;font-size:14px;">📞 ${p}</span>
+      <button type="button" class="icon-btn del" data-i="${i}" title="حذف">✕</button>
+    </div>`).join('');
+  box.querySelectorAll('.del').forEach(btn=>{
+    btn.addEventListener('click', async ()=>{
+      const idx = parseInt(btn.dataset.i,10);
+      const phones = (siteSettings.phones||[]).slice();
+      phones.splice(idx,1);
+      siteSettings = { ...siteSettings, phones };
+      await saveSettings(siteSettings);
+      showToast('شماره حذف شد');
+      renderPhonesList();
+    });
+  });
+}
+
+async function renderUsersTab(){
+  const body = document.getElementById('tabBody');
+  body.innerHTML = `<div class="panel"><h3>کاربران ثبت‌نام‌شده</h3><div id="usersBox" class="loading">در حال بارگذاری…</div></div>
+    <div class="panel"><h3>پرطرفدارترین کتاب‌ها در علاقه‌مندی‌ها</h3><div id="topFavBox" class="loading">در حال بارگذاری…</div></div>
+    <div class="panel"><h3>گزارش کامل علاقه‌مندی‌ها</h3><div id="favLogBox" class="loading">در حال بارگذاری…</div></div>`;
+  const [users, wishlist, products] = await Promise.all([loadUsers(), loadWishlist(), loadProducts()]);
+
+  const usersBox = document.getElementById('usersBox');
+  if(!users.length){ usersBox.innerHTML = `<div class="empty" style="padding:26px 0;">هنوز کاربری ثبت‌نام نکرده</div>`; }
+  else{
+    usersBox.innerHTML = users.map(u => `
+      <div class="prod-row">
+        <div class="info"><h4>${u.name}</h4><span>${u.phone}${u.email?' · '+u.email:''} · عضویت: ${jalaliDisplay(u.createdAt)}</span></div>
+      </div>`).join('');
+  }
+
+  const counts = {};
+  wishlist.forEach(w => { counts[w.productId] = (counts[w.productId]||0) + 1; });
+  const ranked = Object.entries(counts).sort((a,b)=>b[1]-a[1]).map(([pid,count]) => ({ p: products.find(p=>p.id===pid), count })).filter(r=>r.p);
+  const topBox = document.getElementById('topFavBox');
+  topBox.innerHTML = !ranked.length ? `<div class="empty" style="padding:26px 0;">هنوز هیچ کتابی به علاقه‌مندی‌ها اضافه نشده</div>` :
+    ranked.map((r,i) => `
+      <div class="prod-row">
+        <div class="thumb">${thumb(r.p)}</div>
+        <div class="info"><h4>${i+1}. ${r.p.name}</h4><span>${r.count.toLocaleString('fa-IR')} نفر</span></div>
+      </div>`).join('');
+
+  const logBox = document.getElementById('favLogBox');
+  const log = wishlist.slice().sort((a,b)=> new Date(b.addedAt)-new Date(a.addedAt));
+  logBox.innerHTML = !log.length ? `<div class="empty" style="padding:26px 0;">گزارشی موجود نیست</div>` :
+    log.map(w => {
+      const u = users.find(x=>x.id===w.userId);
+      const p = products.find(x=>x.id===w.productId);
+      if(!u || !p) return '';
+      return `<div class="prod-row"><div class="info"><h4>${u.name}</h4><span>«${p.name}» را در ${jalaliDisplay(w.addedAt)} به علاقه‌مندی‌ها اضافه کرد</span></div></div>`;
+    }).join('');
+}
+
+async function renderStatsTab(){
+  const body = document.getElementById('tabBody');
+  body.innerHTML = `<div class="panel"><h3>آمار سایت</h3><div id="statsBox" class="loading">در حال بارگذاری…</div></div>`;
+  const [visits, orders, products] = await Promise.all([getVisitCount(), loadOrders(), loadProducts()]);
+  const revenue = orders.reduce((s,o)=>s+(o.total||0), 0);
+  const box = document.getElementById('statsBox');
+  box.innerHTML = `
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;">
+      <div style="background:var(--paper);border-radius:8px;padding:18px;text-align:center;">
+        <div style="font-size:26px;font-weight:800;color:var(--accent);">${visits.toLocaleString('fa-IR')}</div>
+        <div style="font-size:12.5px;color:var(--ink-soft);margin-top:4px;">بازدید صفحه اصلی</div>
+      </div>
+      <div style="background:var(--paper);border-radius:8px;padding:18px;text-align:center;">
+        <div style="font-size:26px;font-weight:800;color:var(--accent);">${orders.length.toLocaleString('fa-IR')}</div>
+        <div style="font-size:12.5px;color:var(--ink-soft);margin-top:4px;">تعداد سفارش‌ها</div>
+      </div>
+      <div style="background:var(--paper);border-radius:8px;padding:18px;text-align:center;">
+        <div style="font-size:20px;font-weight:800;color:var(--ochre);">${fmtPrice(revenue)}</div>
+        <div style="font-size:12.5px;color:var(--ink-soft);margin-top:4px;">جمع فروش (تومان)</div>
+      </div>
+      <div style="background:var(--paper);border-radius:8px;padding:18px;text-align:center;">
+        <div style="font-size:26px;font-weight:800;color:var(--accent);">${products.length.toLocaleString('fa-IR')}</div>
+        <div style="font-size:12.5px;color:var(--ink-soft);margin-top:4px;">تعداد کتاب‌ها</div>
+      </div>
+    </div>
+    <div style="font-size:11.5px;color:var(--ink-soft);margin-top:16px;">شمارش بازدید فقط با باز شدن صفحه اصلی فروشگاه در هر بار بارگذاری صفحه افزایش پیدا می‌کنه.</div>
+  `;
+}
+
+async function renderAccountTab(){
+  const body = document.getElementById('tabBody');
+  const creds = await getCreds();
+  body.innerHTML = `
+    <div class="panel">
+      <h3>تغییر نام کاربری و رمز عبور مدیر</h3>
+      <form id="accForm" class="form-grid">
+        <div class="field"><label>نام کاربری جدید</label><input type="text" id="a_user" value="${creds.username}"></div>
+        <div class="field"><label>رمز عبور جدید</label><input type="text" id="a_pass" value="${creds.password}"></div>
+        <div class="full"><button type="submit" class="btn btn-accent">ذخیره</button></div>
+      </form>
+    </div>`;
+  body.querySelector('#accForm').addEventListener('submit', async (e)=>{
+    e.preventDefault();
+    const newCreds = { username: document.getElementById('a_user').value.trim(), password: document.getElementById('a_pass').value.trim() };
+    await saveCreds(newCreds);
+    showToast('اطلاعات ورود به‌روزرسانی شد — دفعه بعد با این مشخصات وارد شو');
+  });
+}
+
+/* ---------------- PRODUCT DETAIL ---------------- */
+async function renderProductPage(id){
+  const app = document.getElementById('app');
+  app.innerHTML = `${headerHtml()}<div class="page"><div class="loading">در حال بارگذاری…</div></div>`;
+  const products = await loadProducts();
+  const p = products.find(x => x.id === id);
+  if(!p){
+    app.innerHTML = `${headerHtml()}<div class="page"><div class="empty"><div class="big">🔍</div>این کتاب پیدا نشد<br><a href="#/" class="btn btn-accent" style="margin-top:16px;">بازگشت به قفسه</a></div></div>`;
+    return;
+  }
+  const specs = [
+    ['نویسنده', p.author], ['مترجم', p.translator], ['ناشر', p.publisher], ['تعداد صفحات', p.pages],
+    ['وزن', p.weight ? p.weight+' گرم' : ''], ['قطع / سایز', p.size], ['سال تولید', p.year], ['شابک', p.isbn], ['ژانر', p.category]
+  ].filter(row => row[1]);
+  const related = products.filter(x => x.id !== p.id && x.category === p.category).slice(0,3);
+  const relatedPool = related.length ? related : products.filter(x=>x.id!==p.id).slice(0,3);
+  const isFav = currentUser ? await isInWishlist(p.id) : false;
+
+  app.innerHTML = `
+    ${headerHtml()}
+    <div class="page">
+      <div class="breadcrumb"><a href="#/">فروشگاه</a> ← ${p.category ? `<span>${p.category}</span> ← ` : ''}<span>${p.name}</span></div>
+      <div class="pd-grid">
+        <div>
+          <div class="pd-img">${thumb(p)}</div>
+        </div>
+        <div>
+          ${p.category ? `<span class="pd-cat">${p.category}</span>` : ''}
+          <h1 class="pd-title">${p.name}</h1>
+          <p class="pd-desc">${p.desc||''}</p>
+          ${specs.length ? `
+            <table class="specs-table">${specs.map(r=>`<tr><td>${r[0]}</td><td>${r[1]}</td></tr>`).join('')}</table>
+          ` : ''}
+          <div class="pd-price-box">
+            ${priceBlockHtml(p, 'lg')}
+            <div class="pd-actions">
+              <div class="qty-box">
+                <button id="pdDec" type="button">−</button>
+                <span id="pdQty">1</span>
+                <button id="pdInc" type="button">+</button>
+              </div>
+              <button id="pdAdd" class="btn btn-accent">افزودن به سبد</button>
+              <button id="pdBuy" class="btn btn-rust">خرید سریع</button>
+              <button id="pdFav" class="btn btn-ghost">${isFav?'❤ در علاقه‌مندی‌ها':'🤍 افزودن به علاقه‌مندی‌ها'}</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      ${relatedPool.length ? `
+        <div class="section-title">کتاب‌های مرتبط</div>
+        <div class="grid">${relatedPool.map(r => `
+          <div class="card">
+            <div class="stamp">${(r.category||'کتاب').replace(/</g,'')}</div>
+            <a href="#/product/${r.id}" style="display:block;color:inherit;"><div class="img">${thumb(r)}</div></a>
+            <div class="body">
+              <a href="#/product/${r.id}" style="display:block;color:inherit;"><h3>${r.name}</h3><p>${r.desc||''}</p></a>
+              <div class="price-row">${priceBlockHtml(r)}</div>
+            </div>
+          </div>`).join('')}</div>
+      ` : ''}
+    </div>
+    <footer><span>© ${siteSettings.name}</span><a href="#/">بازگشت به فروشگاه</a></footer>
+  `;
+
+  let qty = 1;
+  const qtyEl = document.getElementById('pdQty');
+  document.getElementById('pdInc').addEventListener('click', ()=>{ qty++; qtyEl.textContent = qty; });
+  document.getElementById('pdDec').addEventListener('click', ()=>{ if(qty>1){ qty--; qtyEl.textContent = qty; } });
+  document.getElementById('pdAdd').addEventListener('click', ()=>{
+    const existing = cart.find(c=>c.id===p.id);
+    if(existing) existing.qty += qty; else cart.push({id:p.id, qty});
+    showToast('به سبد اضافه شد');
+    renderProductPage(id);
+  });
+  document.getElementById('pdBuy').addEventListener('click', ()=>{
+    const existing = cart.find(c=>c.id===p.id);
+    if(existing) existing.qty += qty; else cart.push({id:p.id, qty});
+    window.location.hash = '#/checkout';
+  });
+  document.getElementById('pdFav').addEventListener('click', async ()=>{
+    const added = await toggleWishlist(p.id);
+    if(currentUser){ showToast(added?'به علاقه‌مندی‌ها اضافه شد':'از علاقه‌مندی‌ها حذف شد'); renderProductPage(id); }
+  });
+}
+
+/* ---------------- ROUTER ---------------- */
+async function route(){
+  await ensureSeed();
+  siteSettings = await loadSettings();
+  categoriesCache = await loadCategories();
+  applySettings();
+  const hash = window.location.hash || '#/';
+  if(hash.startsWith('#/admin')) return isLoggedIn ? renderAdminPanel('products') : renderAdminLogin();
+  if(hash.startsWith('#/cart')) return renderCart();
+  if(hash.startsWith('#/checkout')) return renderCheckout();
+  if(hash.startsWith('#/account')) return renderAccountPage();
+  if(hash.startsWith('#/wishlist')) return renderWishlistPage();
+  if(hash.startsWith('#/contact')) return renderContactPage();
+  if(hash.startsWith('#/product/')) return renderProductPage(decodeURIComponent(hash.replace('#/product/','')));
+  return renderShop();
+}
+window.addEventListener('hashchange', route);
+window.addEventListener('DOMContentLoaded', route);
+</script>
+</body>
+</html>
